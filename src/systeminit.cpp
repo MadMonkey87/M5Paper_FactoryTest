@@ -37,7 +37,9 @@ void SysInit_Start(void)
     pinMode(M5EPD_KEY_LEFT_PIN, INPUT);
     delay(100);
 
-    M5.enableEXTPower();
+    //M5.enableEXTPower();
+    M5.disableEXTPower();
+
     // M5.disableEPDPower();
     // delay(500);
     M5.enableEPDPower();
