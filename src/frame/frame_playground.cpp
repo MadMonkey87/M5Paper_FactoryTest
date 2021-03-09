@@ -1,8 +1,13 @@
 #include "frame_playground.h"
+#include "SD.h"
 
 Frame_Playground::Frame_Playground() : Frame_Base()
 {
+    Serial.print("Frame_Playground constructor");
+
     _frame_name = "Frame_Playground";
+
+    String icon = "/Icons/xbox.jpg";
 
     _sample_button_1 = new EPDGUI_Button(20, 140, 240, 240);
     _sample_button_1->CanvasNormal()->fillRoundRect(0,0,240,240,32,15);
@@ -19,19 +24,22 @@ Frame_Playground::Frame_Playground() : Frame_Base()
     _sample_button_3 = new EPDGUI_Button(20, 400, 240, 240);
     _sample_button_3->CanvasNormal()->fillRoundRect(0,0,240,240,8,15);
     _sample_button_3->CanvasNormal()->fillRoundRect(1,1,240-2,240-2,8,2);
-    //memcpy(_sample_button_3->CanvasNormal()->frameBuffer(), ImageResource_home_button_background_228x228, _sample_button_3->CanvasNormal()->getBufferSize());
+    //memcpy(_sample_button_3->CanvasNormal()->frameBuffer(), ImageResource_home_button_background_228x228, 228 * 228 / 2);
+    _sample_button_3->CanvasNormal()->drawJpgFile(SD, icon.c_str(),70,70, 100,100, 50,50);
     _sample_button_3->CanvasPressed()->ReverseColor();
     _sample_button_3->SetEnable(true);
 
     _sample_button_4 = new EPDGUI_Button(280, 400, 240, 240);
     _sample_button_4->CanvasNormal()->fillRoundRect(0,0,240,240,16,15);
     _sample_button_4->CanvasNormal()->fillRoundRect(2,2,240-4,240-4,16,1);
+    _sample_button_4->CanvasNormal()->drawJpgFile(SD, icon.c_str(),70,70, 100,100);
     _sample_button_4->CanvasPressed()->ReverseColor();
     _sample_button_4->SetEnable(true);
 
     _sample_button_5 = new EPDGUI_Button(20, 660, 240, 240);
     _sample_button_5->CanvasNormal()->fillRoundRect(0,0,240,240,16,15);
     _sample_button_5->CanvasNormal()->fillRoundRect(2,2,240-4,240-4,16,0);
+    _sample_button_5->CanvasNormal()->drawJpgFile(SD, icon.c_str(),20,20, 200,200);
     _sample_button_5->CanvasPressed()->ReverseColor();
     _sample_button_5->SetEnable(true);
 
@@ -49,6 +57,8 @@ Frame_Playground::Frame_Playground() : Frame_Base()
 
 Frame_Playground::~Frame_Playground()
 {
+    Serial.print("Frame_Playground destructor");
+
     delete _sample_button_1;
     delete _sample_button_2;
     delete _sample_button_3;
@@ -59,6 +69,8 @@ Frame_Playground::~Frame_Playground()
 
 int Frame_Playground::init(epdgui_args_vector_t &args)
 {
+    Serial.print("Frame_Playground init");
+
     _is_run = 1;
     M5.EPD.Clear();
     _canvas_title->pushCanvas(0, 8, UPDATE_MODE_NONE);
@@ -77,5 +89,7 @@ int Frame_Playground::init(epdgui_args_vector_t &args)
 
 int Frame_Playground::run(void)
 {
+    // Serial.print("Frame_Playground run");
+
     return 1;
 }
