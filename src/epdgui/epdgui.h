@@ -8,6 +8,7 @@
 #include "epdgui_textbox.h"
 #include "epdgui_mutexswitch.h"
 #include "../frame/frame_base.h"
+#include "epdgui_container.h"
 
 void EPDGUI_AddObject(EPDGUI_Base* object);
 void EPDGUI_Draw(m5epd_update_mode_t mode = UPDATE_MODE_GC16);
