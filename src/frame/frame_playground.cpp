@@ -55,8 +55,16 @@ Frame_Playground::Frame_Playground() : Frame_Base()
                 EPDGUI_Widget_Double_Switch *_widget_double_switch = new EPDGUI_Widget_Double_Switch(20 + (x * 260), 140 + (y * 260), 240, 240);
                 _widget_double_switch->Init(v);
                 _widget_container->EPDGUI_AddComponent(_widget_double_switch);
+            } else if (v["widgettype"]=="switch12"){
+                EPDGUI_Widget_Toggle *_widget_toggle = new EPDGUI_Widget_Toggle(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _widget_toggle->Init(v);
+                _widget_container->EPDGUI_AddComponent(_widget_toggle);
+            } else {
+                EPDGUI_Widget_Spinner *_widget_spinner = new EPDGUI_Widget_Spinner(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _widget_spinner->Init(v);
+                _widget_container->EPDGUI_AddComponent(_widget_spinner);
             }
-            
+
             //Serial.println(v.as<int>());
             x++;
         }

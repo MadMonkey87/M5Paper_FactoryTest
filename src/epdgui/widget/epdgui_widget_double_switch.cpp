@@ -10,6 +10,6 @@ void EPDGUI_Widget_Double_Switch::Render(JsonVariant data)
 {
     EPDGUI_Widget_Base::Render(data);
 
-    this->_CanvasNormal->fillRect(10,_w/2-1,_w-20,2, 8);
-    this->_CanvasPressed->fillRect(10,_w/2-2,_w-20,4, 8);
+    this->_CanvasNormal->fillRect(10,_h/2-1,_w-20,2, 8);
+    this->_CanvasPressed->fillRect(10,_h/2-1,_w-20,2, 8);
 }

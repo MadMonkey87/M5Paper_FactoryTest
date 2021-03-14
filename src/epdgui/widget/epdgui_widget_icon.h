@@ -10,6 +10,7 @@ class EPDGUI_Widget_Icon: public EPDGUI_Widget_Base
 public:
     EPDGUI_Widget_Icon(int16_t x, int16_t y, int16_t w, int16_t h);
     void Render(JsonVariant data);
+
 };
 
 

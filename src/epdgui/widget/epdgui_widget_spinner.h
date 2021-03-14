@@ -1,0 +1,15 @@
+#ifndef __EPDGUI_WIDGET_Spinner_H
+#define __EPDGUI_WIDGET_Spinner_H
+
+#include "epdgui_widget_base.h"
+#include "ArduinoJson.h"
+
+class EPDGUI_Widget_Spinner : public EPDGUI_Widget_Base
+{
+
+public:
+    EPDGUI_Widget_Spinner(int16_t x, int16_t y, int16_t w, int16_t h);
+    void Render(JsonVariant data);
+};
+
+#endif //__EPDGUI_WIDGET_Spinner_H

@@ -13,6 +13,8 @@
 #include "widget/epdgui_widget_icon.h"
 #include "widget/epdgui_widget_text.h"
 #include "widget/epdgui_widget_double_switch.h"
+#include "widget/epdgui_widget_toggle.h"
+#include "widget/epdgui_widget_spinner.h"
 
 void EPDGUI_AddObject(EPDGUI_Base* object);
 void EPDGUI_Draw(m5epd_update_mode_t mode = UPDATE_MODE_GC16);
