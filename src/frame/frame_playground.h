@@ -12,12 +12,7 @@ public:
     int run();
     int init(epdgui_args_vector_t &args);
 private:
-    EPDGUI_Button *_sample_button_1;
-    EPDGUI_Button *_sample_button_2;
-    EPDGUI_Button *_sample_button_3;
-    EPDGUI_Button *_sample_button_4;
-    EPDGUI_Button *_sample_button_5;
-    EPDGUI_Button *_sample_button_6;
+    EPDGUI_Container *_widget_container;
 };
 
 #endif //_FRAME_PLAYGROUND_H_

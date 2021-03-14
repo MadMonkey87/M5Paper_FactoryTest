@@ -7,6 +7,7 @@ class EPDGUI_Container : public EPDGUI_Base
 {
 public:
     EPDGUI_Container();
+    EPDGUI_Container(int16_t x, int16_t y, int16_t w, int16_t h);
     ~EPDGUI_Container();
     void Draw(m5epd_update_mode_t mode = UPDATE_MODE_DU4);
     void Draw(M5EPD_Canvas* canvas);

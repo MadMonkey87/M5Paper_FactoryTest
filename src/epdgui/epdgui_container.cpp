@@ -3,6 +3,11 @@
 
 std::list<EPDGUI_Base*> child_components;
 
+EPDGUI_Container::EPDGUI_Container(int16_t x, int16_t y, int16_t w, int16_t h): EPDGUI_Base(x,y,w,h)
+{
+
+}
+
 EPDGUI_Container::EPDGUI_Container(): EPDGUI_Base()
 {
 
