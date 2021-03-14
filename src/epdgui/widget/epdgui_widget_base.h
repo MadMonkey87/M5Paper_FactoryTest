@@ -23,12 +23,14 @@ public:
     static const int16_t FONT_COLOR = 15;
 
 public:
-    EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t h, JsonVariant data);
+    EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t h);
     ~EPDGUI_Widget_Base();
     void Draw(m5epd_update_mode_t mode = UPDATE_MODE_DU4);
     void Draw(M5EPD_Canvas* canvas);
     void Bind(int16_t event, void (* func_cb)(epdgui_args_vector_t&));
     void UpdateState(int16_t x, int16_t y);
+    virtual void Render(JsonVariant data);
+    void Init(JsonVariant data);
 
     M5EPD_Canvas* CanvasNormal();
     M5EPD_Canvas* CanvasPressed();

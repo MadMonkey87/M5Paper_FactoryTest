@@ -1,10 +1,19 @@
 #include "epdgui_widget_base.h"
 
-EPDGUI_Widget_Base::EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t h, JsonVariant data): 
+EPDGUI_Widget_Base::EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t h): 
 EPDGUI_Base(x, y, w, h)
 {
-    String title = data["description"];
 
+}
+
+void EPDGUI_Widget_Base::Init(JsonVariant data)
+{
+    Render(data);
+    this->_CanvasPressed->ReverseColor();
+}
+
+void EPDGUI_Widget_Base::Render(JsonVariant data)
+{
     this->_CanvasNormal = new M5EPD_Canvas(&M5.EPD);
     this->_CanvasPressed = new M5EPD_Canvas(&M5.EPD);
     this->_CanvasNormal->createCanvas(_w, _h);
@@ -15,23 +24,8 @@ EPDGUI_Base(x, y, w, h)
 
     this->_CanvasNormal->fillRoundRect(0,0,_w,_h,CORNER_ROUNDING,BORDER_COLOR);
     this->_CanvasNormal->fillRoundRect(BORDER_WIDTH,BORDER_WIDTH,_w-BORDER_WIDTH*2,_h-BORDER_WIDTH*2,CORNER_ROUNDING-BORDER_WIDTH,BACKGROUND_COLOR);
-    String icon = "/Icons/xbox.jpg";
-    this->_CanvasNormal->drawJpgFile(SD, icon.c_str(),_w/2-50,_h/2-50-35, 100,100);
-    this->_CanvasNormal->setTextSize(TEXT_SIZE);
-    this->_CanvasNormal->setTextColor(FONT_COLOR);
-    this->_CanvasNormal->setTextDatum(MC_DATUM);
-    this->_CanvasNormal->drawString(title.c_str(),  _w/2, _h-35);
-
 
     this->_CanvasPressed->fillRoundRect(0,0,_w,_h,CORNER_ROUNDING,BACKGROUND_COLOR);
-    //this->_CanvasPressed->fillRoundRect(BORDER_WIDTH,BORDER_WIDTH,_w-BORDER_WIDTH*2,_h-BORDER_WIDTH*2,CORNER_ROUNDING-BORDER_WIDTH,BACKGROUND_COLOR);
-    this->_CanvasPressed->drawJpgFile(SD, icon.c_str(),_w/2-50,_h/2-50-35, 100,100);
-    this->_CanvasPressed->setTextSize(TEXT_SIZE);
-    this->_CanvasPressed->setTextColor(FONT_COLOR);
-    this->_CanvasPressed->setTextDatum(MC_DATUM);
-    this->_CanvasPressed->drawString(title.c_str(),  _w/2, _h-35);
-
-    this->_CanvasPressed->ReverseColor();
 }
 
 EPDGUI_Widget_Base::~EPDGUI_Widget_Base()
