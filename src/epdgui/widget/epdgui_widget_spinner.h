@@ -10,6 +10,9 @@ class EPDGUI_Widget_Spinner : public EPDGUI_Widget_Base
 public:
     EPDGUI_Widget_Spinner(int16_t x, int16_t y, int16_t w, int16_t h);
     void Render(JsonVariant data);
+
+protected:
+    void RenderDescriptionLabel(const char *string);
 };
 
 #endif //__EPDGUI_WIDGET_Spinner_H

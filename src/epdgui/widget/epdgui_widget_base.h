@@ -32,19 +32,13 @@ public:
     virtual void Render(JsonVariant data);
     void Init(JsonVariant data);
 
-    M5EPD_Canvas* CanvasNormal();
-    M5EPD_Canvas* CanvasPressed();
+    M5EPD_Canvas* Canvas();
 
-private:
-    void (*_pressed_cb)(epdgui_args_vector_t& args) = NULL;
-    void (*_released_cb)(epdgui_args_vector_t& args) = NULL;
-    epdgui_args_vector_t _pressed_cb_args;
-    epdgui_args_vector_t _released_cb_args;
-    int16_t _state = EVENT_NONE;
+protected:
+    virtual void RenderDescriptionLabel(const char *string);
 
 public:
-    M5EPD_Canvas* _CanvasNormal = NULL;
-    M5EPD_Canvas* _CanvasPressed = NULL;
+    M5EPD_Canvas* _Canvas = NULL;
 };
 
 

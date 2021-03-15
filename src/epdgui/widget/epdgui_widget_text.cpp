@@ -1,31 +1,38 @@
 #include "epdgui_widget_text.h"
 
 EPDGUI_Widget_Text::EPDGUI_Widget_Text(int16_t x, int16_t y, int16_t w, int16_t h): 
-EPDGUI_Widget_Base(x, y, w, h)
+EPDGUI_Widget_Graphic_Base(x, y, w, h)
 {
 
 }
 
 void EPDGUI_Widget_Text::Render(JsonVariant data)
 {
-    EPDGUI_Widget_Base::Render(data);
+    EPDGUI_Widget_Graphic_Base::Render(data);
 
-    String description = "description";//data["description"];
-    String value = "15.6";//data["value"];
-    String hint = "hint";//data["description"];
+    String description = data["description"];
+    String value = data["value"];
+    String hint = data["hint"];
 
-    this->_CanvasNormal->setTextSize(TEXT_SIZE);
-    this->_CanvasNormal->setTextColor(FONT_COLOR);
-    this->_CanvasNormal->setTextDatum(MC_DATUM);
-    this->_CanvasNormal->drawString(hint.c_str(),  _w/2, 35);
+    this->_Canvas->setTextSize(TEXT_SIZE/2);
+    this->_Canvas->setTextColor(FONT_COLOR);
+    this->_Canvas->setTextDatum(MC_DATUM);
+    this->_Canvas->drawString(hint.c_str(),  _w/2, 35);
 
-    this->_CanvasNormal->setTextSize(TEXT_SIZE);
-    this->_CanvasNormal->setTextColor(FONT_COLOR);
-    this->_CanvasNormal->setTextDatum(MC_DATUM);
-    this->_CanvasNormal->drawString(value.c_str(),  _w/2, _h/2);
+    this->_CanvasPressed->setTextSize(TEXT_SIZE/2);
+    this->_CanvasPressed->setTextColor(FONT_COLOR);
+    this->_CanvasPressed->setTextDatum(MC_DATUM);
+    this->_CanvasPressed->drawString(hint.c_str(),  _w/2, 35);
 
-    this->_CanvasNormal->setTextSize(TEXT_SIZE);
-    this->_CanvasNormal->setTextColor(FONT_COLOR);
-    this->_CanvasNormal->setTextDatum(MC_DATUM);
-    this->_CanvasNormal->drawString(description.c_str(),  _w/2, _h-35);
+    this->_Canvas->setTextSize(TEXT_SIZE*4);
+    this->_Canvas->setTextColor(FONT_COLOR);
+    this->_Canvas->setTextDatum(MC_DATUM);
+    this->_Canvas->drawString(value.c_str(),  _w/2, _h/2);
+
+    this->_CanvasPressed->setTextSize(TEXT_SIZE*4);
+    this->_CanvasPressed->setTextColor(FONT_COLOR);
+    this->_CanvasPressed->setTextDatum(MC_DATUM);
+    this->_CanvasPressed->drawString(value.c_str(),  _w/2, _h/2);
+
+    RenderDescriptionLabel(description.c_str());
 }

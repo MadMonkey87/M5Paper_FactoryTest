@@ -2,6 +2,7 @@
 #define __EPDGUI_WIDGET_Double_Switch_H
 
 #include "epdgui_widget_base.h"
+#include "../epdgui_container.h"
 #include "ArduinoJson.h"
 
 class EPDGUI_Widget_Double_Switch: public EPDGUI_Widget_Base

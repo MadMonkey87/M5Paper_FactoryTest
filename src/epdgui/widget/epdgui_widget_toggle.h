@@ -7,7 +7,7 @@
 class EPDGUI_Widget_Toggle : public EPDGUI_Widget_Base
 {
 public:
-    static const int16_t TOGGLE_WIDTH = 140;
+    static const int16_t TOGGLE_WIDTH = 120;
     static const int16_t TOGGLE_HEIGHT = 60;
     static const int16_t TOGGLE_CORNER_RADIUS = 30;
     static const int16_t TOGGLE_BORDER_WIDTH = 4;

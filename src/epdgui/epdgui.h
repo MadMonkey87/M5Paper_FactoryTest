@@ -10,6 +10,7 @@
 #include "../frame/frame_base.h"
 #include "epdgui_container.h"
 #include "widget/epdgui_widget_base.h"
+#include "widget/epdgui_widget_graphic_base.h"
 #include "widget/epdgui_widget_icon.h"
 #include "widget/epdgui_widget_text.h"
 #include "widget/epdgui_widget_double_switch.h"

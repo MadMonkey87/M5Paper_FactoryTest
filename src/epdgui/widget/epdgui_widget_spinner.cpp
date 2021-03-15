@@ -13,13 +13,16 @@ void EPDGUI_Widget_Spinner::Render(JsonVariant data)
     String description = data["description"];
     String value = data["value"];
 
-    this->_CanvasNormal->setTextSize(TEXT_SIZE);
-    this->_CanvasNormal->setTextColor(FONT_COLOR);
-    this->_CanvasNormal->setTextDatum(MC_DATUM);
-    this->_CanvasNormal->drawString(description.c_str(),  _w/2, 35);
+    this->_Canvas->setTextSize(TEXT_SIZE);
+    this->_Canvas->setTextColor(FONT_COLOR);
+    this->_Canvas->setTextDatum(MC_DATUM);
+    this->_Canvas->drawString(value.c_str(),  _w/2, _h/2);
+}
 
-    this->_CanvasNormal->setTextSize(TEXT_SIZE);
-    this->_CanvasNormal->setTextColor(FONT_COLOR);
-    this->_CanvasNormal->setTextDatum(MC_DATUM);
-    this->_CanvasNormal->drawString(value.c_str(),  _w/2, _h/2);
+void EPDGUI_Widget_Spinner::RenderDescriptionLabel(const char *string)
+{
+    this->_Canvas->setTextSize(TEXT_SIZE);
+    this->_Canvas->setTextColor(FONT_COLOR);
+    this->_Canvas->setTextDatum(MC_DATUM);
+    this->_Canvas->drawString(string,  _w/2, 35);
 }
