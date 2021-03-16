@@ -22,7 +22,6 @@ void EPDGUI_Widget_Graphic_Base::Draw(m5epd_update_mode_t mode)
     }
     else if (_state == EVENT_PRESSED)
     {
-        Serial.println(mode);
         this->_CanvasPressed->pushCanvas(_x, _y, mode);
     }
 }
@@ -101,9 +100,11 @@ void EPDGUI_Widget_Graphic_Base::Init(JsonVariant data)
 void EPDGUI_Widget_Graphic_Base::Render(JsonVariant data)
 {
     EPDGUI_Widget_Base::Render(data);
+
+    // todo: check if canvase exists already
     this->_CanvasPressed = new M5EPD_Canvas(&M5.EPD);
     this->_CanvasPressed->createCanvas(_w, _h);
-    this->_CanvasPressed->fillRect(0, 0, _w, _h, 15 - GROUND_COLOR);
+    this->_CanvasPressed->fillCanvas(15 - GROUND_COLOR);
     this->_CanvasPressed->fillRoundRect(0, 0, _w, _h, CORNER_ROUNDING, BACKGROUND_COLOR);
 }
 

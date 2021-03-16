@@ -16,9 +16,10 @@ void EPDGUI_Widget_Base::Init(JsonVariant data)
 
 void EPDGUI_Widget_Base::Render(JsonVariant data)
 {
+    // todo: check if canvase exists already
     this->_Canvas = new M5EPD_Canvas(&M5.EPD);
     this->_Canvas->createCanvas(_w, _h);
-    this->_Canvas->fillRect(0, 0, _w, _h, GROUND_COLOR);
+    this->_Canvas->fillCanvas(GROUND_COLOR);
     this->_Canvas->fillRoundRect(0, 0, _w, _h, CORNER_ROUNDING, BORDER_COLOR);
     this->_Canvas->fillRoundRect(BORDER_WIDTH, BORDER_WIDTH, _w - BORDER_WIDTH * 2, _h - BORDER_WIDTH * 2, CORNER_ROUNDING - BORDER_WIDTH, BACKGROUND_COLOR);
 }
@@ -46,20 +47,6 @@ void EPDGUI_Widget_Base::Draw(M5EPD_Canvas *canvas)
     }
 
     _Canvas->pushToCanvas(_x, _y, canvas);
-}
-
-void EPDGUI_Widget_Base::Bind(int16_t event, void (*func_cb)(epdgui_args_vector_t &))
-{
-}
-
-void EPDGUI_Widget_Base::UpdateState(int16_t x, int16_t y)
-{
-    if (!_isenable || _ishide)
-    {
-        return;
-    }
-
-    Draw();
 }
 
 void EPDGUI_Widget_Base::RenderDescriptionLabel(const char *string)

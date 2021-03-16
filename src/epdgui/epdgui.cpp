@@ -17,6 +17,7 @@ std::map<String, frame_struct_t> frame_map;
 uint8_t frame_switch_count = 0;
 bool _is_auto_update = true;
 uint16_t _last_pos_x = 0xFFFF, _last_pos_y = 0xFFFF;
+bool _last_is_finger_up = false;
 
 void EPDGUI_AddObject(EPDGUI_Base* object)
 {
@@ -45,7 +46,7 @@ void EPDGUI_Process(int16_t x, int16_t y)
 {
     for(std::list<EPDGUI_Base*>::iterator p = epdgui_object_list.begin(); p != epdgui_object_list.end(); p++)
     {
-        // log_d("%d, %d -> %d, %d, %d, %d", x, y, (*p)->getX(), (*p)->getY(), (*p)->getRX(), (*p)->getBY());
+        //log_d("%d, %d -> %d, %d, %d, %d", x, y, (*p)->getX(), (*p)->getY(), (*p)->getRX(), (*p)->getBY());
         (*p)->UpdateState(x, y);
     }
 }
@@ -102,11 +103,14 @@ void EPDGUI_Run(Frame_Base* frame)
         if (M5.TP.avaliable())
         {
             M5.TP.update();
+
             bool is_finger_up = M5.TP.isFingerUp();
-            if(is_finger_up || (_last_pos_x != M5.TP.readFingerX(0)) || (_last_pos_y != M5.TP.readFingerY(0)))
+            if((is_finger_up !=_last_is_finger_up) || (_last_pos_x != M5.TP.readFingerX(0)) || (_last_pos_y != M5.TP.readFingerY(0)))
             {
                 _last_pos_x = M5.TP.readFingerX(0);
                 _last_pos_y = M5.TP.readFingerY(0);
+                _last_is_finger_up = is_finger_up;
+
                 if(is_finger_up)
                 {
                     EPDGUI_Process();
@@ -118,7 +122,6 @@ void EPDGUI_Run(Frame_Base* frame)
                     last_active_time = 0;
                 }
             }
-            
             
             M5.TP.flush();
         }

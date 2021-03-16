@@ -68,5 +68,4 @@ void EPDGUI_Container::UpdateState(int16_t x, int16_t y)
     {
         (*p)->UpdateState(x, y);
     }
-
 }

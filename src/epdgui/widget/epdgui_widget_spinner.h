@@ -9,6 +9,8 @@ class EPDGUI_Widget_Spinner : public EPDGUI_Widget_Base
 
 public:
     EPDGUI_Widget_Spinner(int16_t x, int16_t y, int16_t w, int16_t h);
+    void Bind(int16_t event, void (* func_cb)(epdgui_args_vector_t&));
+    void UpdateState(int16_t x, int16_t y);
     void Render(JsonVariant data);
 
 protected:

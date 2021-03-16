@@ -43,6 +43,9 @@ Frame_Playground::Frame_Playground() : Frame_Base()
                 y++;
                 x = 0;
             }
+            if(y>=3){
+                break;
+            }
             if(v["widgettype"]=="icon"){
                 EPDGUI_Widget_Icon *_widget_icon = new EPDGUI_Widget_Icon(20 + (x * 260), 140 + (y * 260), 240, 240);
                 _widget_icon->Init(v);
@@ -50,22 +53,24 @@ Frame_Playground::Frame_Playground() : Frame_Base()
             } else if(v["widgettype"]=="text"){
                 EPDGUI_Widget_Text *_widget_text = new EPDGUI_Widget_Text(20 + (x * 260), 140 + (y * 260), 240, 240);
                 _widget_text->Init(v);
-                _widget_container->EPDGUI_AddComponent(_widget_text);
-            } else if(v["widgettype"]=="switch1"){
+               _widget_container->EPDGUI_AddComponent(_widget_text);
+            } else if(v["widgettype"]=="doubleswitch"){
                 EPDGUI_Widget_Double_Switch *_widget_double_switch = new EPDGUI_Widget_Double_Switch(20 + (x * 260), 140 + (y * 260), 240, 240);
                 _widget_double_switch->Init(v);
                 _widget_container->EPDGUI_AddComponent(_widget_double_switch);
-            } else if (v["widgettype"]=="switch12"){
+            } else if (v["widgettype"]=="toggle"){
                 EPDGUI_Widget_Toggle *_widget_toggle = new EPDGUI_Widget_Toggle(20 + (x * 260), 140 + (y * 260), 240, 240);
                 _widget_toggle->Init(v);
                 _widget_container->EPDGUI_AddComponent(_widget_toggle);
+            } else if (v["widgettype"]=="icontoggle"){
+                EPDGUI_Widget_Icon_Toggle *_widget_icon_toggle = new EPDGUI_Widget_Icon_Toggle(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _widget_icon_toggle->Init(v);
+                _widget_container->EPDGUI_AddComponent(_widget_icon_toggle);
             } else {
                 EPDGUI_Widget_Spinner *_widget_spinner = new EPDGUI_Widget_Spinner(20 + (x * 260), 140 + (y * 260), 240, 240);
                 _widget_spinner->Init(v);
                 _widget_container->EPDGUI_AddComponent(_widget_spinner);
             }
-
-            //Serial.println(v.as<int>());
             x++;
         }
     }

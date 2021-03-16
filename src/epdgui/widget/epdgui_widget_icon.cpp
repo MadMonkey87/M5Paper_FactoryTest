@@ -11,10 +11,10 @@ void EPDGUI_Widget_Icon::Render(JsonVariant data)
     EPDGUI_Widget_Graphic_Base::Render(data);
 
     String description = data["description"];
+    String icon = data["icon"];
 
-    String icon = "/Icons/xbox.jpg";
-    this->_Canvas->drawJpgFile(SD, icon.c_str(),_w/2-50,_h/2-50-35, 100,100);
-    this->_CanvasPressed->drawJpgFile(SD, icon.c_str(),_w/2-50,_h/2-50-35, 100,100);
+    this->_Canvas->drawJpgFile(SD, icon.c_str(),_w/2-70,_h/2-70-25, 140,140);
+    this->_CanvasPressed->drawJpgFile(SD, icon.c_str(),_w/2-70,_h/2-70-25, 140,140);
 
     RenderDescriptionLabel(description.c_str());
 }

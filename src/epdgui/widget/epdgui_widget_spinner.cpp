@@ -26,3 +26,13 @@ void EPDGUI_Widget_Spinner::RenderDescriptionLabel(const char *string)
     this->_Canvas->setTextDatum(MC_DATUM);
     this->_Canvas->drawString(string,  _w/2, 35);
 }
+
+void EPDGUI_Widget_Spinner::Bind(int16_t event, void (*func_cb)(epdgui_args_vector_t &))
+{
+
+}
+
+void EPDGUI_Widget_Spinner::UpdateState(int16_t x, int16_t y)
+{
+    
+}
