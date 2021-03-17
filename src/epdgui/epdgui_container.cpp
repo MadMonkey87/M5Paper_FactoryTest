@@ -1,7 +1,4 @@
 #include "epdgui_container.h"
-#include <list>
-
-std::list<EPDGUI_Base*> child_components;
 
 EPDGUI_Container::EPDGUI_Container(int16_t x, int16_t y, int16_t w, int16_t h): EPDGUI_Base(x,y,w,h)
 {
@@ -15,7 +12,7 @@ EPDGUI_Container::EPDGUI_Container(): EPDGUI_Base()
 
 EPDGUI_Container::~EPDGUI_Container()
 {
-    for(std::list<EPDGUI_Base*>::iterator p = child_components.begin(); p != child_components.end(); p++)
+    for(std::list<EPDGUI_Base*>::iterator p = _child_components.begin(); p != _child_components.end(); p++)
     {
         delete (*p);
     }
@@ -23,7 +20,7 @@ EPDGUI_Container::~EPDGUI_Container()
 
 void EPDGUI_Container::EPDGUI_AddComponent(EPDGUI_Base* component)
 {
-    child_components.push_back(component);
+    _child_components.push_back(component);
 }
 
 void EPDGUI_Container::Draw(m5epd_update_mode_t mode)
@@ -33,7 +30,7 @@ void EPDGUI_Container::Draw(m5epd_update_mode_t mode)
         return;
     }
 
-    for(std::list<EPDGUI_Base*>::iterator p = child_components.begin(); p != child_components.end(); p++)
+    for(std::list<EPDGUI_Base*>::iterator p = _child_components.begin(); p != _child_components.end(); p++)
     {
         (*p)->Draw(mode);
     }
@@ -46,7 +43,7 @@ void EPDGUI_Container::Draw(M5EPD_Canvas* canvas)
         return;
     }
 
-    for(std::list<EPDGUI_Base*>::iterator p = child_components.begin(); p != child_components.end(); p++)
+    for(std::list<EPDGUI_Base*>::iterator p = _child_components.begin(); p != _child_components.end(); p++)
     {
         (*p)->Draw(canvas);
     }
@@ -64,7 +61,7 @@ void EPDGUI_Container::UpdateState(int16_t x, int16_t y)
         return;
     }
 
-    for(std::list<EPDGUI_Base*>::iterator p = child_components.begin(); p != child_components.end(); p++)
+    for(std::list<EPDGUI_Base*>::iterator p = _child_components.begin(); p != _child_components.end(); p++)
     {
         (*p)->UpdateState(x, y);
     }

@@ -124,8 +124,6 @@ void SysInit_Start(void)
         EPDGUI_AddFrame("Frame_WifiScan", frame_wifiscan);
         Frame_WifiPassword *frame_wifipassword = new Frame_WifiPassword();
         EPDGUI_AddFrame("Frame_WifiPassword", frame_wifipassword);
-        Frame_Lifegame *frame_lifegame = new Frame_Lifegame();
-        EPDGUI_AddFrame("Frame_Lifegame", frame_lifegame);
         Frame_Compare *frame_compare = new Frame_Compare();
         EPDGUI_AddFrame("Frame_Compare", frame_compare);
         Frame_Home *frame_home = new Frame_Home();

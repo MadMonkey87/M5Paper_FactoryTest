@@ -12,7 +12,8 @@ public:
     int run();
     int init(epdgui_args_vector_t &args);
 private:
-    EPDGUI_Container *_widget_container;
+    EPDGUI_Page *_page_container;
+    int16_t lastButtonIndex = 0;
 };
 
 #endif //_FRAME_PLAYGROUND_H_

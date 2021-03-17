@@ -14,22 +14,22 @@ void EPDGUI_Widget_Text::Render(JsonVariant data)
     String value = data["value"];
     String hint = data["hint"];
 
-    this->_Canvas->setTextSize(20);
+    this->_Canvas->setTextSize(TEXT_SIZE);
     this->_Canvas->setTextColor(FONT_COLOR);
     this->_Canvas->setTextDatum(MC_DATUM);
     this->_Canvas->drawString(hint.c_str(),  _w/2, 35);
 
-    this->_CanvasPressed->setTextSize(20);
+    this->_CanvasPressed->setTextSize(TEXT_SIZE);
     this->_CanvasPressed->setTextColor(FONT_COLOR);
     this->_CanvasPressed->setTextDatum(MC_DATUM);
     this->_CanvasPressed->drawString(hint.c_str(),  _w/2, 35);
 
-    this->_Canvas->setTextSize(45);
+    this->_Canvas->setTextSize(TEXT_SIZE);
     this->_Canvas->setTextColor(FONT_COLOR);
     this->_Canvas->setTextDatum(MC_DATUM);
     this->_Canvas->drawString(value.c_str(),  _w/2, _h/2);
 
-    this->_CanvasPressed->setTextSize(45);
+    this->_CanvasPressed->setTextSize(TEXT_SIZE);
     this->_CanvasPressed->setTextColor(FONT_COLOR);
     this->_CanvasPressed->setTextDatum(MC_DATUM);
     this->_CanvasPressed->drawString(value.c_str(),  _w/2, _h/2);

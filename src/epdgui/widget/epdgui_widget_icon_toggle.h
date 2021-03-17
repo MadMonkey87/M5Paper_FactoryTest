@@ -4,7 +4,7 @@
 #include "epdgui_widget_graphic_base.h"
 #include "ArduinoJson.h"
 
-class EPDGUI_Widget_Icon_Toggle: public EPDGUI_Widget_Graphic_Base
+class EPDGUI_Widget_Icon_Toggle : public EPDGUI_Widget_Graphic_Base
 {
 
 public:
@@ -12,7 +12,11 @@ public:
     void Init(JsonVariant data);
     void Render(JsonVariant data);
 
+private:
+    JsonArray _items;
+    int16_t _index = 0;
+    int16_t _state = EVENT_NONE;
+    void Render();
 };
-
 
 #endif //__EPDGUI_WIDGET_ICON_TOGGLE_H

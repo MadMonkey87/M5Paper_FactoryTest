@@ -51,7 +51,7 @@ void EPDGUI_Widget_Toggle::UpdateState(int16_t x, int16_t y)
             {
                 _value = !_value;
                 this->Render();
-                Draw(UPDATE_MODE_GC16);
+                Draw();
             }
         }
     }

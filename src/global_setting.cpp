@@ -17,9 +17,7 @@ esp_err_t __espret__;
     }
 
 const uint8_t *wallpapers[] = {
-    ImageResource_wallpaper_m5stack_540x960,
-    ImageResource_wallpaper_engine_540x960,
-    ImageResource_wallpaper_penrose_triangle_540x960
+    ImageResource_wallpaper_engine_540x960
 };
 
 const uint8_t *kIMGLoading[16] = {

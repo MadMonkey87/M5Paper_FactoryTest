@@ -9,7 +9,7 @@ Frame_Playground::Frame_Playground() : Frame_Base()
 
     _frame_name = "Frame_Playground";
 
-    _widget_container = new EPDGUI_Container();
+    _page_container = new EPDGUI_Page(0, 120, 540, 960 - 120);
 
     File file = SD.open("/index.json");
     if (!file)
@@ -34,8 +34,9 @@ Frame_Playground::Frame_Playground() : Frame_Base()
     else
     {
         JsonArray array = doc["widgets"].as<JsonArray>();
-        int x = 0;
-        int y = 0;
+        int16_t x = 0;
+        int16_t y = 0;
+        int16_t p = 0;
         for (JsonVariant v : array)
         {
             if (x >= 2)
@@ -43,33 +44,58 @@ Frame_Playground::Frame_Playground() : Frame_Base()
                 y++;
                 x = 0;
             }
-            if(y>=3){
-                break;
+            if (y >= 3)
+            {
+                y = 0;
+                p++;
             }
-            if(v["widgettype"]=="icon"){
-                EPDGUI_Widget_Icon *_widget_icon = new EPDGUI_Widget_Icon(20 + (x * 260), 140 + (y * 260), 240, 240);
+
+            int16_t pos_x = 20 + (x * 260);
+            int16_t pos_y = 20 + 120 + (y * 260);
+            int16_t width = 240;
+            int16_t height = 240;
+
+            if (v["widgettype"] == "icon")
+            {
+                EPDGUI_Widget_Icon *_widget_icon = new EPDGUI_Widget_Icon(pos_x, pos_y, width, height);
                 _widget_icon->Init(v);
-                _widget_container->EPDGUI_AddComponent(_widget_icon);
-            } else if(v["widgettype"]=="text"){
-                EPDGUI_Widget_Text *_widget_text = new EPDGUI_Widget_Text(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _page_container->EPDGUI_AddComponent(_widget_icon, p);
+            }
+            else if (v["widgettype"] == "text")
+            {
+                EPDGUI_Widget_Text *_widget_text = new EPDGUI_Widget_Text(pos_x, pos_y, width, height);
                 _widget_text->Init(v);
-               _widget_container->EPDGUI_AddComponent(_widget_text);
-            } else if(v["widgettype"]=="doubleswitch"){
-                EPDGUI_Widget_Double_Switch *_widget_double_switch = new EPDGUI_Widget_Double_Switch(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _page_container->EPDGUI_AddComponent(_widget_text, p);
+            }
+            else if (v["widgettype"] == "doubleswitch")
+            {
+                EPDGUI_Widget_Double_Switch *_widget_double_switch = new EPDGUI_Widget_Double_Switch(pos_x, pos_y, width, height);
                 _widget_double_switch->Init(v);
-                _widget_container->EPDGUI_AddComponent(_widget_double_switch);
-            } else if (v["widgettype"]=="toggle"){
-                EPDGUI_Widget_Toggle *_widget_toggle = new EPDGUI_Widget_Toggle(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _page_container->EPDGUI_AddComponent(_widget_double_switch, p);
+            }
+            else if (v["widgettype"] == "toggle")
+            {
+                EPDGUI_Widget_Toggle *_widget_toggle = new EPDGUI_Widget_Toggle(pos_x, pos_y, width, height);
                 _widget_toggle->Init(v);
-                _widget_container->EPDGUI_AddComponent(_widget_toggle);
-            } else if (v["widgettype"]=="icontoggle"){
-                EPDGUI_Widget_Icon_Toggle *_widget_icon_toggle = new EPDGUI_Widget_Icon_Toggle(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _page_container->EPDGUI_AddComponent(_widget_toggle, p);
+            }
+            else if (v["widgettype"] == "icontoggle")
+            {
+                EPDGUI_Widget_Icon_Toggle *_widget_icon_toggle = new EPDGUI_Widget_Icon_Toggle(pos_x, pos_y, width, height);
                 _widget_icon_toggle->Init(v);
-                _widget_container->EPDGUI_AddComponent(_widget_icon_toggle);
-            } else {
-                EPDGUI_Widget_Spinner *_widget_spinner = new EPDGUI_Widget_Spinner(20 + (x * 260), 140 + (y * 260), 240, 240);
+                _page_container->EPDGUI_AddComponent(_widget_icon_toggle, p);
+            }
+            else if (v["widgettype"] == "progress")
+            {
+                EPDGUI_Widget_Progress *_widget_progress = new EPDGUI_Widget_Progress(pos_x, pos_y, width, height);
+                _widget_progress->Init(v);
+                _page_container->EPDGUI_AddComponent(_widget_progress, p);
+            }
+            else
+            {
+                EPDGUI_Widget_Spinner *_widget_spinner = new EPDGUI_Widget_Spinner(pos_x, pos_y, width, height);
                 _widget_spinner->Init(v);
-                _widget_container->EPDGUI_AddComponent(_widget_spinner);
+                _page_container->EPDGUI_AddComponent(_widget_spinner, p);
             }
             x++;
         }
@@ -86,7 +112,7 @@ Frame_Playground::~Frame_Playground()
 {
     Serial.print("Frame_Playground destructor");
 
-    delete _widget_container;
+    delete _page_container;
 }
 
 int Frame_Playground::init(epdgui_args_vector_t &args)
@@ -98,14 +124,25 @@ int Frame_Playground::init(epdgui_args_vector_t &args)
     _canvas_title->pushCanvas(0, 8, UPDATE_MODE_NONE);
     EPDGUI_AddObject(_key_exit);
 
-    EPDGUI_AddObject(_widget_container);
+    _page_container->Init();
+    EPDGUI_AddObject(_page_container);
 
     return 0;
 }
 
 int Frame_Playground::run(void)
 {
-    // Serial.print("Frame_Playground run");
+    M5.update();
+    if (M5.BtnL.isPressed() && lastButtonIndex != -1)
+    {
+        lastButtonIndex = -1;
+        _page_container->SetPageIndex(_page_container->GetPageIndex() - 1);
+    }
+    else if (M5.BtnR.isPressed() && lastButtonIndex != 1)
+    {
+        lastButtonIndex = 1;
+        _page_container->SetPageIndex(_page_container->GetPageIndex() + 1);
+    }
 
     return 1;
 }

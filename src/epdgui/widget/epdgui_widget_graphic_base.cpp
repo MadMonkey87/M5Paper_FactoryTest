@@ -69,12 +69,11 @@ void EPDGUI_Widget_Graphic_Base::UpdateState(int16_t x, int16_t y)
         if (_state == EVENT_NONE)
         {
             _state = EVENT_PRESSED;
-            // Serial.printf("%s Pressed ", _label.c_str());
-            Draw();
             if (_pressed_cb != NULL)
             {
                 _pressed_cb(_pressed_cb_args);
             }
+            Draw();
         }
     }
     else
@@ -82,11 +81,11 @@ void EPDGUI_Widget_Graphic_Base::UpdateState(int16_t x, int16_t y)
         if (_state == EVENT_PRESSED)
         {
             _state = EVENT_NONE;
-            Draw();
             if (_released_cb != NULL)
             {
                 _released_cb(_released_cb_args);
             }
+            Draw();
         }
     }
 }

@@ -9,6 +9,8 @@
 #include "epdgui_mutexswitch.h"
 #include "../frame/frame_base.h"
 #include "epdgui_container.h"
+#include "epdgui_page.h"
+#include "epdgui_page_indicator.h"
 #include "widget/epdgui_widget_base.h"
 #include "widget/epdgui_widget_graphic_base.h"
 #include "widget/epdgui_widget_icon.h"
@@ -17,6 +19,7 @@
 #include "widget/epdgui_widget_toggle.h"
 #include "widget/epdgui_widget_spinner.h"
 #include "widget/epdgui_widget_icon_toggle.h"
+#include "widget/epdgui_widget_progress.h"
 
 void EPDGUI_AddObject(EPDGUI_Base* object);
 void EPDGUI_Draw(m5epd_update_mode_t mode = UPDATE_MODE_GC16);

@@ -3,7 +3,6 @@
 #include "frame_keyboard.h"
 #include "frame_factorytest.h"
 #include "frame_wifiscan.h"
-#include "frame_lifegame.h"
 #include "frame_fileindex.h"
 #include "frame_compare.h"
 #include "frame_home.h"
@@ -68,18 +67,6 @@ void key_wifiscan_cb(epdgui_args_vector_t &args)
     {
         frame = new Frame_WifiScan();
         EPDGUI_AddFrame("Frame_WifiScan", frame);
-    }
-    EPDGUI_PushFrame(frame);
-    *((int*)(args[0])) = 0;
-}
-
-void key_lifegame_cb(epdgui_args_vector_t &args)
-{
-    Frame_Base *frame = EPDGUI_GetFrame("Frame_Lifegame");
-    if(frame == NULL)
-    {
-        frame = new Frame_Lifegame();
-        EPDGUI_AddFrame("Frame_Lifegame", frame);
     }
     EPDGUI_PushFrame(frame);
     *((int*)(args[0])) = 0;
