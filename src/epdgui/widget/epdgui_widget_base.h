@@ -22,6 +22,23 @@ public:
     static const int16_t BACKGROUND_COLOR = 0;
     static const int16_t FONT_COLOR = 15;
 
+    static const int16_t RENDER_BACKGROUND_MODE_TOP_LEFT = 0;
+    static const int16_t RENDER_BACKGROUND_MODE_TOP = 1;
+    static const int16_t RENDER_BACKGROUND_MODE_TOP_RIGHT = 2;
+    static const int16_t RENDER_BACKGROUND_MODE_LEFT = 3;
+    static const int16_t RENDER_BACKGROUND_MODE_MIDDLE = 4;
+    static const int16_t RENDER_BACKGROUND_MODE_RIGHT = 5;
+    static const int16_t RENDER_BACKGROUND_MODE_BOTTOM_LEFT = 6;
+    static const int16_t RENDER_BACKGROUND_MODE_BOTTOM_MIDDLE = 7;
+    static const int16_t RENDER_BACKGROUND_MODE_BOTTOM_RIGHT = 8;
+    static const int16_t RENDER_BACKGROUND_MODE_MIDDLE_VERTICAL = 9;
+    static const int16_t RENDER_BACKGROUND_MODE_MIDDLE_HORIZONTAL = 10;
+    static const int16_t RENDER_BACKGROUND_MODE_FULL = 11;
+    static const int16_t RENDER_BACKGROUND_MODE_FULL_WITHOUT_TOP = 12;
+    static const int16_t RENDER_BACKGROUND_MODE_FULL_WITHOUT_BOTTOM = 13;
+    static const int16_t RENDER_BACKGROUND_MODE_FULL_WITHOUT_LEFT = 14;
+    static const int16_t RENDER_BACKGROUND_MODE_FULL_WITHOUT_RIGHT = 15;
+
 public:
     EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t h);
     ~EPDGUI_Widget_Base();
@@ -34,6 +51,8 @@ public:
 
 protected:
     virtual void RenderDescriptionLabel(const char *string);
+    //revertable prepares the background s.t a reverseColor will give the actually correct color
+    void RenderBackground(int16_t mode, M5EPD_Canvas* canvas, bool revertable);
 
 public:
     M5EPD_Canvas* _Canvas = NULL;

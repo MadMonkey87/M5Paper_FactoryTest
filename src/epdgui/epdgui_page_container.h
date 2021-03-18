@@ -1,19 +1,19 @@
-#ifndef __EPDGUI_PAGE_H
-#define __EPDGUI_PAGE_H
+#ifndef __EPDGUI_PAGE_CONTAINER_H
+#define __EPDGUI_PAGE_CONTAINER_H
 
 #include "epdgui_base.h"
 #include "epdgui_container.h"
 #include "epdgui_page_indicator.h"
 #include <list>
 
-class EPDGUI_Page : public EPDGUI_Base
+class EPDGUI_Page_Container : public EPDGUI_Base
 {
 public:
     static const int16_t INDICATOR_HEIGHT = 60;
 
 public:
-    EPDGUI_Page(int16_t x, int16_t y, int16_t w, int16_t h);
-    ~EPDGUI_Page();
+    EPDGUI_Page_Container(int16_t x, int16_t y, int16_t w, int16_t h);
+    ~EPDGUI_Page_Container();
     void Draw(m5epd_update_mode_t mode = UPDATE_MODE_GLD16);
     void Draw(M5EPD_Canvas *canvas);
     void Bind(int16_t event, void (*func_cb)(epdgui_args_vector_t &));
@@ -30,4 +30,4 @@ private:
     int16_t _pageIndex = 0;
 };
 
-#endif //__EPDGUI_PAGE_H
+#endif //__EPDGUI_PAGE_CONTAINER_H

@@ -103,8 +103,8 @@ void EPDGUI_Widget_Graphic_Base::Render(JsonVariant data)
     // todo: check if canvase exists already
     this->_CanvasPressed = new M5EPD_Canvas(&M5.EPD);
     this->_CanvasPressed->createCanvas(_w, _h);
-    this->_CanvasPressed->fillCanvas(15 - GROUND_COLOR);
-    this->_CanvasPressed->fillRoundRect(0, 0, _w, _h, CORNER_ROUNDING, BACKGROUND_COLOR);
+
+    RenderBackground(RENDER_BACKGROUND_MODE_FULL, this->_CanvasPressed, true);
 }
 
 M5EPD_Canvas *EPDGUI_Widget_Graphic_Base::CanvasPressed()

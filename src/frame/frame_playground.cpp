@@ -9,7 +9,7 @@ Frame_Playground::Frame_Playground() : Frame_Base()
 
     _frame_name = "Frame_Playground";
 
-    _page_container = new EPDGUI_Page(0, 120, 540, 960 - 120);
+    _page_container = new EPDGUI_Page_Container(0, 120, 540, 960 - 120);
 
     File file = SD.open("/index.json");
     if (!file)
@@ -37,23 +37,50 @@ Frame_Playground::Frame_Playground() : Frame_Base()
         int16_t x = 0;
         int16_t y = 0;
         int16_t p = 0;
+        int16_t last_grid_height = 0;
         for (JsonVariant v : array)
         {
-            if (x >= 2)
+            int16_t grid_width = v["grid_width"];
+            if (grid_width <= 0)
             {
-                y++;
-                x = 0;
+                grid_width = 1;
             }
-            if (y >= 3)
+            else if (grid_width > GRID_WIDTH)
             {
+                grid_width = GRID_WIDTH;
+            }
+            int16_t grid_height = v["grid_height"];
+            if (grid_height <= 0)
+            {
+                grid_height = 1;
+            }
+            else if (grid_height > GRID_HEIGHT)
+            {
+                grid_height = GRID_HEIGHT;
+            }
+
+            // go to next row/column/page if not enough space is available
+            if (GRID_WIDTH - x < grid_width)
+            {
+                x = 0;
+                y += last_grid_height;
+            }
+
+            if (GRID_HEIGHT - y < grid_height)
+            {
+                x = 0;
                 y = 0;
                 p++;
+                last_grid_height = 0;
             }
 
             int16_t pos_x = 20 + (x * 260);
             int16_t pos_y = 20 + 120 + (y * 260);
-            int16_t width = 240;
-            int16_t height = 240;
+            int16_t width = 240 * grid_width + (grid_width - 1) * (x + 1) * 20;
+            int16_t height = 240 * grid_height + (grid_height - 1) * (y + 1) * 20;
+
+            x += grid_width;
+            last_grid_height = last_grid_height > grid_height ? last_grid_height : grid_height;
 
             if (v["widgettype"] == "icon")
             {
@@ -91,13 +118,18 @@ Frame_Playground::Frame_Playground() : Frame_Base()
                 _widget_progress->Init(v);
                 _page_container->EPDGUI_AddComponent(_widget_progress, p);
             }
-            else
+            else if (v["widgettype"] == "multibutton")
+            {
+                EPDGUI_Widget_Multi_Button *_widget_multi_button = new EPDGUI_Widget_Multi_Button(pos_x, pos_y, width, height, grid_height * 3);
+                _widget_multi_button->Init(v);
+                _page_container->EPDGUI_AddComponent(_widget_multi_button, p);
+            }
+            else if (v["widgettype"] == "spinner")
             {
                 EPDGUI_Widget_Spinner *_widget_spinner = new EPDGUI_Widget_Spinner(pos_x, pos_y, width, height);
                 _widget_spinner->Init(v);
                 _page_container->EPDGUI_AddComponent(_widget_spinner, p);
             }
-            x++;
         }
     }
 
@@ -142,6 +174,14 @@ int Frame_Playground::run(void)
     {
         lastButtonIndex = 1;
         _page_container->SetPageIndex(_page_container->GetPageIndex() + 1);
+    }
+    else if (!M5.BtnL.isPressed() && lastButtonIndex == -1)
+    {
+        lastButtonIndex = 0;
+    }
+    else if (!M5.BtnR.isPressed() && lastButtonIndex == 1)
+    {
+        lastButtonIndex = 0;
     }
 
     return 1;

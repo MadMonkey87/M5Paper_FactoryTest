@@ -128,7 +128,7 @@ void SysInit_Start(void)
         EPDGUI_AddFrame("Frame_Compare", frame_compare);
         Frame_Home *frame_home = new Frame_Home();
         EPDGUI_AddFrame("Frame_Home", frame_home);
-        Frame_Playground *frame_playground = new Frame_Playground();
+        Frame_Playground *frame_playground = NULL;//new Frame_Playground();
         EPDGUI_AddFrame("Frame_playground", frame_playground);
 
         if(isWiFiConfiged())
