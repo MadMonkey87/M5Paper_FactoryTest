@@ -4,7 +4,7 @@
 void key_pictureviewer_exit_cb(epdgui_args_vector_t &args)
 {
     EPDGUI_PopFrame(true);
-    *((int*)(args[0])) = 0;
+    *((int *)(args[0])) = 0;
 }
 
 Frame_PictureViewer::Frame_PictureViewer(String path)
@@ -17,24 +17,12 @@ Frame_PictureViewer::Frame_PictureViewer(String path)
     _canvas_picture->setTextSize(26);
     _canvas_picture->setTextColor(0);
     _canvas_picture->setTextDatum(CC_DATUM);
- 
-    uint8_t language = GetLanguage();
-    if(language == LANGUAGE_JA)
-    {
-        exitbtn("戻る");
-    }
-    else if(language == LANGUAGE_ZH)
-    {
-        exitbtn("返回");
-    }
-    else
-    {
-        exitbtn("Back");
-    }
+
+    exitbtn("Back");
 
     _canvas_title->drawString(path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf(".")), 270, 34);
 
-    _key_exit->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void*)(&_is_run));
+    _key_exit->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void *)(&_is_run));
     _key_exit->Bind(EPDGUI_Button::EVENT_RELEASED, &key_pictureviewer_exit_cb);
 
     _is_first = true;
@@ -54,15 +42,15 @@ void Frame_PictureViewer::err(String info)
 
 int Frame_PictureViewer::run()
 {
-    if(_is_first)
+    if (_is_first)
     {
         _is_first = false;
         LoadingAnime_32x32_Start(254, 500);
         String suffix = _pic_path.substring(_pic_path.lastIndexOf("."));
-        if((suffix.indexOf("bmp") >= 0) || (suffix.indexOf("BMP") >= 0))
+        if ((suffix.indexOf("bmp") >= 0) || (suffix.indexOf("BMP") >= 0))
         {
             bool ret = _canvas_picture->drawBmpFile(SD, _pic_path.c_str(), 0, 0);
-            if(ret == 0)
+            if (ret == 0)
             {
                 err("Error opening " + _pic_path.substring(_pic_path.lastIndexOf("/")));
             }
@@ -70,7 +58,7 @@ int Frame_PictureViewer::run()
         else if ((suffix.indexOf("png") >= 0) || (suffix.indexOf("PNG") >= 0))
         {
             bool ret = _canvas_picture->drawPngFile(SD, _pic_path.c_str());
-            if(ret == 0)
+            if (ret == 0)
             {
                 err("Error opening " + _pic_path.substring(_pic_path.lastIndexOf("/")));
             }
@@ -78,7 +66,7 @@ int Frame_PictureViewer::run()
         else if ((suffix.indexOf("jpg") >= 0) || (suffix.indexOf("JPG") >= 0))
         {
             bool ret = _canvas_picture->drawJpgFile(SD, _pic_path.c_str());
-            if(ret == 0)
+            if (ret == 0)
             {
                 err("Error opening " + _pic_path.substring(_pic_path.lastIndexOf("/")));
             }
@@ -97,5 +85,3 @@ int Frame_PictureViewer::init(epdgui_args_vector_t &args)
     EPDGUI_AddObject(_key_exit);
     return 3;
 }
-
-

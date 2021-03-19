@@ -41,22 +41,8 @@ Frame_FactoryTest::Frame_FactoryTest(void)
     _canvas_btn->setTextDatum(CR_DATUM);
     _canvas_pass->setTextDatum(CR_DATUM);
 
-    _language = GetLanguage();
-    if (_language == LANGUAGE_JA)
-    {
-        exitbtn("ホーム");
-        _canvas_title->drawString("工場テスト", 270, 34);
-    }
-    else if (_language == LANGUAGE_ZH)
-    {
-        exitbtn("主页");
-        _canvas_title->drawString("出厂测试", 270, 34);
-    }
-    else
-    {
-        exitbtn("Home");
-        _canvas_title->drawString("Factory Test", 270, 34);
-    }
+    exitbtn("Home");
+    _canvas_title->drawString("Factory Test", 270, 34);
 
     _key_exit->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void *)(&_is_run));
     _key_exit->Bind(EPDGUI_Button::EVENT_RELEASED, &Frame_Base::exit_cb);
@@ -106,11 +92,11 @@ Frame_FactoryTest::~Frame_FactoryTest(void)
     delete _canvas_pass;
 }
 
-void Frame_FactoryTest::drawItem(uint16_t flag, const char* str, int y)
+void Frame_FactoryTest::drawItem(uint16_t flag, const char *str, int y)
 {
     String prefix_pass("[PASS] ");
     String prefix_none("");
-    if(_pass_flag & flag)
+    if (_pass_flag & flag)
     {
         _canvas_base->drawString(prefix_pass + str, POS_LX, y);
     }
@@ -123,47 +109,18 @@ void Frame_FactoryTest::drawItem(uint16_t flag, const char* str, int y)
 
 void Frame_FactoryTest::drawItem(m5epd_update_mode_t mode)
 {
-    
+
     _canvas_base->fillCanvas(0);
-    if (_language == LANGUAGE_JA)
-    {
-        drawItem(0x0001, "1.期日", 30);
-        drawItem(0x0002, "2.時間", 90);
-        drawItem(0x0004, "3.温度", 150);
-        drawItem(0x0008, "4.湿度", 210);
-        drawItem(0x0010, "5.電池", 270);
-        drawItem(0x0020, "6.Wi-Fi", 330);
-        drawItem(0x0040, "7.PSRAM", 390);
-        drawItem(0x0080, "8.SDカード", 450);
-        drawItem(0x0100, "9.ボタン", 510);
-        drawItem(0x0200, "10.タッチパッド", 570);
-    }
-    else if (_language == LANGUAGE_ZH)
-    {
-        drawItem(0x0001, "1.日期", 30);
-        drawItem(0x0002, "2.时间", 90);
-        drawItem(0x0004, "3.温度", 150);
-        drawItem(0x0008, "4.湿度", 210);
-        drawItem(0x0010, "5.电池", 270);
-        drawItem(0x0020, "6.Wi-Fi", 330);
-        drawItem(0x0040, "7.PSRAM", 390);
-        drawItem(0x0080, "8.SD卡", 450);
-        drawItem(0x0100, "9.按键", 510);
-        drawItem(0x0200, "10.触屏", 570);
-    }
-    else
-    {
-        drawItem(0x0001, "1.day", 30);
-        drawItem(0x0002, "2.Time", 90);
-        drawItem(0x0004, "3.Temperature", 150);
-        drawItem(0x0008, "4.Humidity", 210);
-        drawItem(0x0010, "5.Battery", 270);
-        drawItem(0x0020, "6.Wi-Fi", 330);
-        drawItem(0x0040, "7.PSRAM", 390);
-        drawItem(0x0080, "8.SD Card", 450);
-        drawItem(0x0100, "9.Button", 510);
-        drawItem(0x0200, "10.TouchPad", 570);
-    }
+    drawItem(0x0001, "1.day", 30);
+    drawItem(0x0002, "2.Time", 90);
+    drawItem(0x0004, "3.Temperature", 150);
+    drawItem(0x0008, "4.Humidity", 210);
+    drawItem(0x0010, "5.Battery", 270);
+    drawItem(0x0020, "6.Wi-Fi", 330);
+    drawItem(0x0040, "7.PSRAM", 390);
+    drawItem(0x0080, "8.SD Card", 450);
+    drawItem(0x0100, "9.Button", 510);
+    drawItem(0x0200, "10.TouchPad", 570);
     _canvas_base->pushCanvas(0, 100, mode);
 }
 
@@ -276,7 +233,7 @@ int Frame_FactoryTest::run()
         ispressed = true;
     }
     buf[ptr] = '\0';
-    if(ptr == 0)
+    if (ptr == 0)
     {
         strcpy(buf, "Waiting...");
     }
@@ -319,7 +276,7 @@ int Frame_FactoryTest::run()
 
         // SHT30
         M5.SHT30.UpdateData();
-        if(M5.SHT30.GetError() == 0)
+        if (M5.SHT30.GetError() == 0)
         {
             float ctemp = M5.SHT30.GetTemperature();
             float chumi = M5.SHT30.GetRelHumidity();
@@ -434,7 +391,6 @@ int Frame_FactoryTest::run()
         _canvas_data->pushCanvas(300, 100, UPDATE_MODE_A2);
     }
 
-
     //  grove
     uint16_t temp = pass_flag;
     if (!(pass_flag & 0x0400))
@@ -449,11 +405,11 @@ int Frame_FactoryTest::run()
     {
         pass_flag |= checkGrove(M5EPD_PORTC_Y_PIN, M5EPD_PORTC_W_PIN) ? 0x1000 : 0x0000;
     }
-    
+
     bool update_flag = false;
-    if(temp != pass_flag)
+    if (temp != pass_flag)
     {
-        if(pass_flag != _pass_flag)
+        if (pass_flag != _pass_flag)
         {
             update_flag = true;
         }
@@ -467,7 +423,7 @@ int Frame_FactoryTest::run()
         drawItem(UPDATE_MODE_GL16);
         update_flag = true;
     }
-    if(update_flag)
+    if (update_flag)
     {
         drawPassCount(UPDATE_MODE_GL16);
     }

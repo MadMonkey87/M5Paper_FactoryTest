@@ -3,8 +3,6 @@
 
 #include "frame_main.h"
 #include "frame_setting.h"
-#include "frame_setting_language.h"
-#include "frame_setting_wallpaper.h"
 #include "frame_keyboard.h"
 #include "frame_factorytest.h"
 #include "frame_wifiscan.h"
@@ -13,7 +11,6 @@
 #include "frame_txtreader.h"
 #include "frame_compare.h"
 #include "frame_pictureviewer.h"
-#include "frame_home.h"
 #include "frame_playground.h"
 
 #endif

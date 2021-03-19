@@ -16,10 +16,6 @@ esp_err_t __espret__;
         return __espret__;    \
     }
 
-const uint8_t *wallpapers[] = {
-    ImageResource_wallpaper_engine_540x960
-};
-
 const uint8_t *kIMGLoading[16] = {
     ImageResource_item_loading_01_32x32,
     ImageResource_item_loading_02_32x32,
@@ -38,23 +34,7 @@ const uint8_t *kIMGLoading[16] = {
     ImageResource_item_loading_15_32x32,
     ImageResource_item_loading_16_32x32
 };
-const char *wallpapers_name_en[] = {
-    "M5Paper",
-    "Engine",
-    "Penrose Triangle"
-};
-const char *wallpapers_name_zh[] = {
-    "M5Paper",
-    "引擎",
-    "彭罗斯三角"
-};
-const char *wallpapers_name_ja[] = {
-    "M5Paper",
-    "エンジン",
-    "ペンローズの三角形"
-};
-uint16_t global_wallpaper = DEFAULT_WALLPAPER;
-uint8_t global_language = LANGUAGE_EN;
+
 String global_wifi_ssid;
 String global_wifi_password;
 uint8_t global_wifi_configed = false;
@@ -62,7 +42,7 @@ uint16_t global_reader_textsize = 32;
 uint8_t global_time_synced = false;
 uint8_t global_ttf_file_loaded = false;
 uint8_t global_init_status = 0xFF;
-int8_t global_timezone = 8;
+int8_t global_timezone = 1;
 
 
 int8_t GetTimeZone(void)
@@ -107,62 +87,12 @@ void SetTimeSynced(uint8_t val)
     SaveSetting();
 }
 
-void SetLanguage(uint8_t language)
-{
-    if (language >= LANGUAGE_EN && language <= LANGUAGE_ZH)
-    {
-        global_language = language;
-    }
-    SaveSetting();
-}
-
-uint8_t GetLanguage(void)
-{
-    return global_language;
-}
-
-void SetWallpaper(uint16_t wallpaper_id)
-{
-    global_wallpaper = wallpaper_id;
-    SaveSetting();
-}
-
-uint16_t GetWallpaperID(void)
-{
-    return global_wallpaper;
-}
-
-const uint8_t *GetWallpaper(void)
-{
-    return wallpapers[global_wallpaper];
-}
-
-const char *GetWallpaperName(uint16_t wallpaper_id)
-{
-    switch (global_language)
-    {
-    case LANGUAGE_ZH:
-        return wallpapers_name_zh[wallpaper_id];
-    case LANGUAGE_JA:
-        return wallpapers_name_ja[wallpaper_id];
-    default:
-        return wallpapers_name_en[wallpaper_id];
-    }
-}
-
 esp_err_t LoadSetting(void)
 {
     nvs_handle nvs_arg;
     NVS_CHECK(nvs_open("Setting", NVS_READONLY, &nvs_arg));
-    NVS_CHECK(nvs_get_u16(nvs_arg, "Wallpaper", &global_wallpaper));
-    NVS_CHECK(nvs_get_u8(nvs_arg, "Language", &global_language));
     NVS_CHECK(nvs_get_u8(nvs_arg, "Timesync", &global_time_synced));
     nvs_get_i8(nvs_arg, "timezone", &global_timezone);
-
-    if(global_wallpaper >= WALLPAPER_NUM)
-    {
-        global_wallpaper = DEFAULT_WALLPAPER;
-    }
     
     size_t length = 128;
     char buf[128];
@@ -180,8 +110,6 @@ esp_err_t SaveSetting(void)
 {
     nvs_handle nvs_arg;
     NVS_CHECK(nvs_open("Setting", NVS_READWRITE, &nvs_arg));
-    NVS_CHECK(nvs_set_u16(nvs_arg, "Wallpaper", global_wallpaper));
-    NVS_CHECK(nvs_set_u8(nvs_arg, "Language", global_language));
     NVS_CHECK(nvs_set_u8(nvs_arg, "Timesync", global_time_synced));
     NVS_CHECK(nvs_set_i8(nvs_arg, "timezone", global_timezone));
     NVS_CHECK(nvs_set_str(nvs_arg, "ssid", global_wifi_ssid.c_str()));

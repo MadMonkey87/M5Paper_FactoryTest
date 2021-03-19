@@ -1,2 +1,2 @@
-# M5Paper_FactoryTest
-PlatformIO Project for M5Paper
+# PhiBoard
+E-Ink Remote/Dashboard for smart home applications
