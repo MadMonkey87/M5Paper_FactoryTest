@@ -91,6 +91,15 @@ void EPDGUI_Widget_Multi_Button::RenderButtonContent(M5EPD_Canvas *canvas, bool 
         EPDGUI_Widget_Base::RenderBackground(RENDER_BACKGROUND_MODE_MIDDLE_HORIZONTAL, canvas, pressed);
     }
 
+    if (!first)
+    {
+        canvas->fillRect(SEPARATOR_HORIZONTAL_MARGIN, 0, canvas->width() - (SEPARATOR_HORIZONTAL_MARGIN * 2), SEPARATOR_HEIGHT / 2, SEPARATOR_COLOR);
+    }
+    if (!last)
+    {
+        canvas->fillRect(SEPARATOR_HORIZONTAL_MARGIN, canvas->height() - SEPARATOR_HEIGHT / 2, canvas->width() - (SEPARATOR_HORIZONTAL_MARGIN * 2), SEPARATOR_HEIGHT / 2, SEPARATOR_COLOR);
+    }
+
     canvas->drawJpgFile(SD, icon.c_str(), canvas->width() - 60 - 10, 10, 60, 60);
 
     canvas->setTextSize(TEXT_SIZE);
