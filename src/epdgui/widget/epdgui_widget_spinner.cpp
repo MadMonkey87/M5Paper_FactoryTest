@@ -3,8 +3,8 @@
 EPDGUI_Widget_Spinner::EPDGUI_Widget_Spinner(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Base(x, y, w, h)
 {
     this->_centralButton = new EPDGUI_Button(_x, _y, _w, (_h - BUTTON_HEIGHT));
-    this->_leftButton = new EPDGUI_Button(_x, _y + _h - BUTTON_HEIGHT, _w / 2 - BORDER_WIDTH, BUTTON_HEIGHT);
-    this->_rightButton = new EPDGUI_Button(_x + _w / 2 - BORDER_WIDTH, _y + _h - BUTTON_HEIGHT, _w / 2 - BORDER_WIDTH, BUTTON_HEIGHT);
+    this->_leftButton = new EPDGUI_Button(_x, _y + _h - BUTTON_HEIGHT, _w / 2, BUTTON_HEIGHT);
+    this->_rightButton = new EPDGUI_Button(_x + _w / 2, _y + _h - BUTTON_HEIGHT, _w / 2 - BORDER_WIDTH * 2, BUTTON_HEIGHT);
 }
 
 void EPDGUI_Widget_Spinner::Render(JsonVariant data)
