@@ -42,20 +42,13 @@ public:
 public:
     EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t h);
     ~EPDGUI_Widget_Base();
-    void Draw(m5epd_update_mode_t mode = UPDATE_MODE_GLD16); //UPDATE_MODE_GL16 //UPDATE_MODE_DU4
-    void Draw(M5EPD_Canvas* canvas);
-    virtual void Render(JsonVariant data);
+    //void Draw(m5epd_update_mode_t mode = UPDATE_MODE_GLD16); //UPDATE_MODE_GL16 //UPDATE_MODE_DU4
+    //void Draw(M5EPD_Canvas* canvas);
     void Init(JsonVariant data);
 
-    M5EPD_Canvas* Canvas();
-
 protected:
-    virtual void RenderDescriptionLabel(const char *string);
-    //revertable prepares the background s.t a reverseColor will give the actually correct color
+    virtual void RenderDescriptionLabel(M5EPD_Canvas* canvas, const char *string);
     void RenderBackground(int16_t mode, M5EPD_Canvas* canvas, bool revertable);
-
-public:
-    M5EPD_Canvas* _Canvas = NULL;
 };
 
 

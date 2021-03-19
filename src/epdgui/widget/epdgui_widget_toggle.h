@@ -1,10 +1,10 @@
 #ifndef __EPDGUI_WIDGET_Toggle_H
 #define __EPDGUI_WIDGET_Toggle_H
 
-#include "epdgui_widget_base.h"
+#include "epdgui_widget_graphic_base.h"
 #include "ArduinoJson.h"
 
-class EPDGUI_Widget_Toggle : public EPDGUI_Widget_Base
+class EPDGUI_Widget_Toggle : public EPDGUI_Widget_Graphic_Base
 {
 public:
     static const int16_t TOGGLE_WIDTH = 120;

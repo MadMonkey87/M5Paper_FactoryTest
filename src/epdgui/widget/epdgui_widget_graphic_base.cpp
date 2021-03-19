@@ -1,12 +1,31 @@
 #include "epdgui_widget_graphic_base.h"
 
-EPDGUI_Widget_Graphic_Base::EPDGUI_Widget_Graphic_Base(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Base(x, y, w, h)
+EPDGUI_Widget_Graphic_Base::EPDGUI_Widget_Graphic_Base(int16_t x, int16_t y, int16_t w, int16_t h, boolean createNormalCanvas, boolean createPressedCanvas) : EPDGUI_Widget_Base(x, y, w, h)
 {
+    if (createNormalCanvas)
+    {
+        this->_Canvas = new M5EPD_Canvas(&M5.EPD);
+        this->_Canvas->createCanvas(_w, _h);
+    }
+
+    if (createPressedCanvas)
+    {
+        this->_CanvasPressed = new M5EPD_Canvas(&M5.EPD);
+        this->_CanvasPressed->createCanvas(_w, _h);
+    }
 }
 
 EPDGUI_Widget_Graphic_Base::~EPDGUI_Widget_Graphic_Base()
 {
-    delete this->_CanvasPressed;
+    if (this->_Canvas != NULL)
+    {
+        delete this->_Canvas;
+    }
+
+    if (this->_CanvasPressed != NULL)
+    {
+        delete this->_CanvasPressed;
+    }
 }
 
 void EPDGUI_Widget_Graphic_Base::Draw(m5epd_update_mode_t mode)
@@ -16,11 +35,11 @@ void EPDGUI_Widget_Graphic_Base::Draw(m5epd_update_mode_t mode)
         return;
     }
 
-    if (_state == EVENT_NONE || _state == EVENT_RELEASED)
+    if (this->_Canvas != NULL && _state == EVENT_NONE || _state == EVENT_RELEASED)
     {
         this->_Canvas->pushCanvas(_x, _y, mode);
     }
-    else if (_state == EVENT_PRESSED)
+    else if (this->_CanvasPressed != NULL && _state == EVENT_PRESSED)
     {
         this->_CanvasPressed->pushCanvas(_x, _y, mode);
     }
@@ -33,11 +52,11 @@ void EPDGUI_Widget_Graphic_Base::Draw(M5EPD_Canvas *canvas)
         return;
     }
 
-    if (_state == EVENT_NONE || _state == EVENT_RELEASED)
+    if (_Canvas != NULL && _state == EVENT_NONE || _state == EVENT_RELEASED)
     {
         _Canvas->pushToCanvas(_x, _y, canvas);
     }
-    else if (_state == EVENT_PRESSED)
+    else if (_CanvasPressed != NULL && _state == EVENT_PRESSED)
     {
         _CanvasPressed->pushToCanvas(_x, _y, canvas);
     }
@@ -93,18 +112,29 @@ void EPDGUI_Widget_Graphic_Base::UpdateState(int16_t x, int16_t y)
 void EPDGUI_Widget_Graphic_Base::Init(JsonVariant data)
 {
     Render(data);
-    this->_CanvasPressed->ReverseColor();
+
+    if (this->_CanvasPressed != NULL)
+    {
+        this->_CanvasPressed->ReverseColor();
+    }
 }
 
 void EPDGUI_Widget_Graphic_Base::Render(JsonVariant data)
 {
-    EPDGUI_Widget_Base::Render(data);
+    if (this->_Canvas != NULL)
+    {
+        RenderBackground(RENDER_BACKGROUND_MODE_FULL, this->_Canvas, false);
+    }
 
-    // todo: check if canvase exists already
-    this->_CanvasPressed = new M5EPD_Canvas(&M5.EPD);
-    this->_CanvasPressed->createCanvas(_w, _h);
+    if (this->_CanvasPressed != NULL)
+    {
+        RenderBackground(RENDER_BACKGROUND_MODE_FULL, this->_CanvasPressed, true);
+    }
+}
 
-    RenderBackground(RENDER_BACKGROUND_MODE_FULL, this->_CanvasPressed, true);
+M5EPD_Canvas *EPDGUI_Widget_Graphic_Base::Canvas()
+{
+    return this->_Canvas;
 }
 
 M5EPD_Canvas *EPDGUI_Widget_Graphic_Base::CanvasPressed()
@@ -114,10 +144,13 @@ M5EPD_Canvas *EPDGUI_Widget_Graphic_Base::CanvasPressed()
 
 void EPDGUI_Widget_Graphic_Base::RenderDescriptionLabel(const char *string)
 {
-    EPDGUI_Widget_Base::RenderDescriptionLabel(string);
+    if (this->_Canvas != NULL)
+    {
+        EPDGUI_Widget_Base::RenderDescriptionLabel(this->_Canvas, string);
+    }
 
-    this->_CanvasPressed->setTextSize(TEXT_SIZE);
-    this->_CanvasPressed->setTextColor(FONT_COLOR);
-    this->_CanvasPressed->setTextDatum(MC_DATUM);
-    this->_CanvasPressed->drawString(string, _w / 2, _h - 35);
+    if (this->_CanvasPressed != NULL)
+    {
+        EPDGUI_Widget_Base::RenderDescriptionLabel(this->_CanvasPressed, string);
+    }
 }

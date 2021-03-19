@@ -1,11 +1,11 @@
 #ifndef __EPDGUI_WIDGET_Double_Switch_H
 #define __EPDGUI_WIDGET_Double_Switch_H
 
-#include "epdgui_widget_base.h"
+#include "epdgui_widget_graphic_base.h"
 #include "../epdgui_button.h"
 #include "ArduinoJson.h"
 
-class EPDGUI_Widget_Double_Switch : public EPDGUI_Widget_Base
+class EPDGUI_Widget_Double_Switch : public EPDGUI_Widget_Graphic_Base
 {
 public:
     static const int16_t MIDDLE_HEIGHT = 16;

@@ -1,6 +1,6 @@
 #include "epdgui_widget_multi_button.h"
 
-EPDGUI_Widget_Multi_Button::EPDGUI_Widget_Multi_Button(int16_t x, int16_t y, int16_t w, int16_t h, int16_t items) : EPDGUI_Widget_Base(x, y, w, h)
+EPDGUI_Widget_Multi_Button::EPDGUI_Widget_Multi_Button(int16_t x, int16_t y, int16_t w, int16_t h, int16_t items) : EPDGUI_Widget_Graphic_Base(x, y, w, h, false, false)
 {
     int16_t element_height = h / items;
 
@@ -21,16 +21,7 @@ EPDGUI_Widget_Multi_Button::~EPDGUI_Widget_Multi_Button()
 
 void EPDGUI_Widget_Multi_Button::Render(JsonVariant data)
 {
-    EPDGUI_Widget_Base::Render(data);
-
-    //RenderButtonContent(this->_upperButton->_CanvasNormal, true, "Test", "/Icons/play-2-small.jpg");
-    //RenderButtonContent(this->_upperButton->_CanvasPressed, true, "Test", "/Icons/play-2-small.jpg");
-
-    /*int index = 0;
-    for (JsonVariant data["items"] : array)
-    {
-        index++;
-    }*/
+    EPDGUI_Widget_Graphic_Base::Render(data);
 
     int index = 0;
     int last = _buttons.size() - 1;
@@ -53,7 +44,6 @@ void EPDGUI_Widget_Multi_Button::UpdateState(int16_t x, int16_t y)
         return;
     }
 
-    //_upperButton->UpdateState(x, y);
     for (std::list<EPDGUI_Button *>::iterator p = _buttons.begin(); p != _buttons.end(); p++)
     {
         (*p)->UpdateState(x, y);
@@ -67,8 +57,6 @@ void EPDGUI_Widget_Multi_Button::Draw(m5epd_update_mode_t mode)
         return;
     }
 
-    EPDGUI_Widget_Base::Draw(mode);
-
     for (std::list<EPDGUI_Button *>::iterator p = _buttons.begin(); p != _buttons.end(); p++)
     {
         (*p)->Draw(mode);
@@ -81,8 +69,6 @@ void EPDGUI_Widget_Multi_Button::Draw(M5EPD_Canvas *canvas)
     {
         return;
     }
-
-    EPDGUI_Widget_Base::Draw(canvas);
 
     for (std::list<EPDGUI_Button *>::iterator p = _buttons.begin(); p != _buttons.end(); p++)
     {

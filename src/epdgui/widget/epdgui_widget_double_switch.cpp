@@ -1,7 +1,10 @@
 #include "epdgui_widget_double_switch.h"
 
-EPDGUI_Widget_Double_Switch::EPDGUI_Widget_Double_Switch(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Base(x, y, w, h)
+EPDGUI_Widget_Double_Switch::EPDGUI_Widget_Double_Switch(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Graphic_Base(x, y, w, h, false, false)
 {
+    this->_Canvas = new M5EPD_Canvas(&M5.EPD);
+    this->_Canvas->createCanvas(_w, MIDDLE_HEIGHT);
+
     this->_upperButton = new EPDGUI_Button(x, y, _w, (_h - MIDDLE_HEIGHT) / 2);
     this->_lowerButton = new EPDGUI_Button(x, y + _h / 2 + MIDDLE_HEIGHT / 2, _w, (_h - MIDDLE_HEIGHT) / 2);
 }
@@ -14,9 +17,6 @@ EPDGUI_Widget_Double_Switch::~EPDGUI_Widget_Double_Switch()
 
 void EPDGUI_Widget_Double_Switch::Render(JsonVariant data)
 {
-    this->_Canvas = new M5EPD_Canvas(&M5.EPD);
-    this->_Canvas->createCanvas(_w, MIDDLE_HEIGHT);
-
     this->_Canvas->fillCanvas(BORDER_COLOR);
     this->_Canvas->fillRect(BORDER_WIDTH, 0, _w - BORDER_WIDTH * 2, MIDDLE_HEIGHT, BACKGROUND_COLOR);
     this->_Canvas->fillRect(BAR_HORIZONTAL_MARGIN, MIDDLE_HEIGHT / 2 - BAR_HEIGHT / 2, _w - (BAR_HORIZONTAL_MARGIN * 2), BAR_HEIGHT, BAR_COLOR);
@@ -36,13 +36,7 @@ void EPDGUI_Widget_Double_Switch::RenderUpperButton(M5EPD_Canvas *canvas, bool p
     int16_t height = _upperButton->getH();
     int16_t width = _upperButton->getW();
 
-    canvas->fillCanvas(pressed ? 15 - GROUND_COLOR : GROUND_COLOR);
-
-    canvas->fillRoundRect(0, 0, width, height + CORNER_ROUNDING, CORNER_ROUNDING, pressed ? 15 - BORDER_COLOR : BORDER_COLOR);
-    if (!pressed)
-    {
-        canvas->fillRoundRect(BORDER_WIDTH, BORDER_WIDTH, width - BORDER_WIDTH * 2, height - BORDER_WIDTH * 2 + CORNER_ROUNDING, CORNER_ROUNDING - BORDER_WIDTH, BACKGROUND_COLOR);
-    }
+    EPDGUI_Widget_Base::RenderBackground(RENDER_BACKGROUND_MODE_FULL_WITHOUT_BOTTOM, canvas, pressed);
 
     canvas->drawJpgFile(SD, icon.c_str(), width / 2 - 40, height / 2 - 40, 80, 80);
 
@@ -57,13 +51,7 @@ void EPDGUI_Widget_Double_Switch::RenderLowerButton(M5EPD_Canvas *canvas, bool p
     int16_t height = _lowerButton->getH();
     int16_t width = _lowerButton->getW();
 
-    canvas->fillCanvas(pressed ? 15 - GROUND_COLOR : GROUND_COLOR);
-
-    canvas->fillRoundRect(0, -CORNER_ROUNDING, width, height + CORNER_ROUNDING, CORNER_ROUNDING, pressed ? 15 - BORDER_COLOR : BORDER_COLOR);
-    if (!pressed)
-    {
-        canvas->fillRoundRect(BORDER_WIDTH, BORDER_WIDTH - CORNER_ROUNDING, width - BORDER_WIDTH * 2, height - BORDER_WIDTH * 2 + CORNER_ROUNDING, CORNER_ROUNDING - BORDER_WIDTH, BACKGROUND_COLOR);
-    }
+    EPDGUI_Widget_Base::RenderBackground(RENDER_BACKGROUND_MODE_FULL_WITHOUT_TOP, canvas, pressed);
 
     canvas->drawJpgFile(SD, icon.c_str(), width / 2 - 40, height / 2 - 40, 80, 80);
 

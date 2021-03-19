@@ -1,6 +1,6 @@
 #include "epdgui_widget_progress.h"
 
-EPDGUI_Widget_Progress::EPDGUI_Widget_Progress(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Graphic_Base(x, y, w, h)
+EPDGUI_Widget_Progress::EPDGUI_Widget_Progress(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Graphic_Base(x, y, w, h, true, true)
 {
 }
 
@@ -63,7 +63,7 @@ void EPDGUI_Widget_Progress::Render()
 void EPDGUI_Widget_Progress::RenderGauge(M5EPD_Canvas *canvas, int16_t x, int16_t y, int16_t outerRadius, int16_t innerRadius, int16_t value, int16_t minValue, int16_t maxValue, float startRadian, float endRadian, int16_t color, bool roundBegin, bool roundEnd)
 {
     // scale main/max/value s.t there are enough lines drawn for a solid fill
-    int16_t necessary_iterations = outerRadius * 2.8 + 325;
+    int16_t necessary_iterations = outerRadius * 3.5 + 325;
     float iteration_scale = necessary_iterations / (maxValue - minValue);
 
     minValue *= iteration_scale;

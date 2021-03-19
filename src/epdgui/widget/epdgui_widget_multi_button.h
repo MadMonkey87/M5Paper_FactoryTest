@@ -1,12 +1,12 @@
 #ifndef __EPDGUI_WIDGET_Multi_Button_H
 #define __EPDGUI_WIDGET_Multi_Button_H
 
-#include "epdgui_widget_base.h"
+#include "epdgui_widget_graphic_base.h"
 #include "../epdgui_button.h"
 #include "ArduinoJson.h"
 #include <list>
 
-class EPDGUI_Widget_Multi_Button : public EPDGUI_Widget_Base
+class EPDGUI_Widget_Multi_Button : public EPDGUI_Widget_Graphic_Base
 {
 public:
     EPDGUI_Widget_Multi_Button(int16_t x, int16_t y, int16_t w, int16_t h, int16_t items);

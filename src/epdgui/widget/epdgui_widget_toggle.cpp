@@ -1,12 +1,12 @@
 #include "epdgui_widget_toggle.h"
 
-EPDGUI_Widget_Toggle::EPDGUI_Widget_Toggle(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Base(x, y, w, h)
+EPDGUI_Widget_Toggle::EPDGUI_Widget_Toggle(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Graphic_Base(x, y, w, h, true, false)
 {
 }
 
 void EPDGUI_Widget_Toggle::Render(JsonVariant data)
 {
-    EPDGUI_Widget_Base::Render(data);
+    EPDGUI_Widget_Graphic_Base::Render(data);
 
     this->Render();
 

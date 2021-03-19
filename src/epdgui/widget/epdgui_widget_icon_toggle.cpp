@@ -10,7 +10,7 @@ void released_cb(epdgui_args_vector_t &args)
     }*/
 }
 
-EPDGUI_Widget_Icon_Toggle::EPDGUI_Widget_Icon_Toggle(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Graphic_Base(x, y, w, h)
+EPDGUI_Widget_Icon_Toggle::EPDGUI_Widget_Icon_Toggle(int16_t x, int16_t y, int16_t w, int16_t h) : EPDGUI_Widget_Graphic_Base(x, y, w, h, true, true)
 {
     Bind(EPDGUI_Widget_Base::EVENT_RELEASED, &released_cb);
 }
