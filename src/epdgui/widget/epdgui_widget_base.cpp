@@ -6,15 +6,18 @@ EPDGUI_Widget_Base::EPDGUI_Widget_Base(int16_t x, int16_t y, int16_t w, int16_t 
 
 EPDGUI_Widget_Base::~EPDGUI_Widget_Base()
 {
-
 }
 
 void EPDGUI_Widget_Base::Init(JsonVariant data)
 {
-
+    Render(data);
 }
 
-void EPDGUI_Widget_Base::RenderDescriptionLabel(M5EPD_Canvas* canvas, const char *string)
+void EPDGUI_Widget_Base::Render(JsonVariant data)
+{
+}
+
+void EPDGUI_Widget_Base::RenderDescriptionLabel(M5EPD_Canvas *canvas, const char *string)
 {
     canvas->setTextSize(TEXT_SIZE);
     canvas->setTextColor(FONT_COLOR);

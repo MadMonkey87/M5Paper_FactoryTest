@@ -1,6 +1,6 @@
 #include "epdgui_widget_multi_button.h"
 
-EPDGUI_Widget_Multi_Button::EPDGUI_Widget_Multi_Button(int16_t x, int16_t y, int16_t w, int16_t h, int16_t items) : EPDGUI_Widget_Graphic_Base(x, y, w, h, false, false)
+EPDGUI_Widget_Multi_Button::EPDGUI_Widget_Multi_Button(int16_t x, int16_t y, int16_t w, int16_t h, int16_t items) : EPDGUI_Widget_Base(x, y, w, h)
 {
     int16_t element_height = h / items;
 
@@ -21,7 +21,7 @@ EPDGUI_Widget_Multi_Button::~EPDGUI_Widget_Multi_Button()
 
 void EPDGUI_Widget_Multi_Button::Render(JsonVariant data)
 {
-    EPDGUI_Widget_Graphic_Base::Render(data);
+    //EPDGUI_Widget_Graphic_Base::Render(data);
 
     int index = 0;
     int last = _buttons.size() - 1;
