@@ -9,6 +9,11 @@ class Frame_Playground : public Frame_Base
 public:
     static const int16_t GRID_WIDTH = 2;
     static const int16_t GRID_HEIGHT = 3;
+    static const int16_t GRID_MARGIN = 20;
+
+    static const int16_t WIDTH = 540;
+    static const int16_t HEIGHT = 960;
+    static const int16_t HEADER_HEIGHT = 120;
 
 public:
     Frame_Playground();

@@ -9,7 +9,7 @@ Frame_Playground::Frame_Playground() : Frame_Base()
 
     _frame_name = "Frame_Playground";
 
-    _page_container = new EPDGUI_Page_Container(0, 120, 540, 960 - 120);
+    _page_container = new EPDGUI_Page_Container(0, HEADER_HEIGHT, WIDTH, HEIGHT - HEADER_HEIGHT);
 
     File file = SD.open("/index.json");
     if (!file)
@@ -74,10 +74,13 @@ Frame_Playground::Frame_Playground() : Frame_Base()
                 last_grid_height = 0;
             }
 
-            int16_t pos_x = 20 + (x * 260);
-            int16_t pos_y = 20 + 120 + (y * 260);
-            int16_t width = 240 * grid_width + (grid_width - 1) * (x + 1) * 20;
-            int16_t height = 240 * grid_height + (grid_height - 1) * (y + 1) * 20;
+            int16_t element_width = ((WIDTH - 2 * GRID_MARGIN) - (GRID_WIDTH - 1) * GRID_MARGIN) / GRID_WIDTH;
+            int16_t element_height = element_width; //((HEIGHT - HEADER_HEIGHT - 2 * GRID_MARGIN) - (GRID_HEIGHT - 1) * GRID_MARGIN) / GRID_HEIGHT;
+
+            int16_t pos_x = GRID_MARGIN + (x * (element_width + GRID_MARGIN));
+            int16_t pos_y = HEADER_HEIGHT + GRID_MARGIN + (y * (element_height + GRID_MARGIN));
+            int16_t width = element_width * grid_width + (grid_width - 1) * (x + 1) * GRID_MARGIN;
+            int16_t height = element_height * grid_height + (grid_height - 1) * (y + 1) * GRID_MARGIN;
 
             x += grid_width;
             last_grid_height = last_grid_height > grid_height ? last_grid_height : grid_height;
