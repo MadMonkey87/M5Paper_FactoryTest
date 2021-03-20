@@ -2,6 +2,19 @@
 #include "SD.h"
 #include "ArduinoJson.h"
 #include "FS.h"
+#include "frame_playground.h"
+
+void key_synctime_cb2(epdgui_args_vector_t &args)
+{
+    Frame_Base *frame = EPDGUI_GetFrame("Frame_Playground");
+    if (frame == NULL)
+    {
+        frame = new Frame_Playground();
+        EPDGUI_AddFrame("Frame_Playground", frame);
+    }
+    EPDGUI_PushFrame(frame);
+    *((int *)(args[0])) = 0;
+}
 
 Frame_Home::Frame_Home() : Frame_Base()
 {
@@ -9,6 +22,12 @@ Frame_Home::Frame_Home() : Frame_Base()
     _frame_id = 1;
 
     _page_container = new EPDGUI_Page_Container(0, HEADER_HEIGHT, WIDTH, HEIGHT - HEADER_HEIGHT);
+
+    EPDGUI_Button *button = new EPDGUI_Button(4, 220, 532, 61);
+    button->setBMPButton("  Playground", "", ImageResource_item_icon_ntptime_32x32);
+    button->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void *)(&_is_run));
+    button->Bind(EPDGUI_Button::EVENT_RELEASED, &key_synctime_cb2);
+    _page_container->EPDGUI_AddComponent(button, 0);
 
     /*File file = SD.open("/index.json");
     if (!file)
