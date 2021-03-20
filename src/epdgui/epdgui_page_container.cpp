@@ -49,7 +49,11 @@ void EPDGUI_Page_Container::Draw(m5epd_update_mode_t mode)
         return;
     }
 
-    GetPageByIndex(_pageIndex)->Draw(mode);
+    if (_size > 0)
+    {
+        GetPageByIndex(_pageIndex)->Draw(mode);
+    }
+
     _page_indicator->Draw(mode);
 }
 
@@ -60,7 +64,11 @@ void EPDGUI_Page_Container::Draw(M5EPD_Canvas *canvas)
         return;
     }
 
-    GetPageByIndex(_pageIndex)->Draw(canvas);
+    if (_size > 0)
+    {
+        GetPageByIndex(_pageIndex)->Draw(canvas);
+    }
+
     _page_indicator->Draw(canvas);
 }
 
@@ -75,7 +83,11 @@ void EPDGUI_Page_Container::UpdateState(int16_t x, int16_t y)
         return;
     }
 
-    GetPageByIndex(_pageIndex)->UpdateState(x, y);
+    if (_size > 0)
+    {
+        GetPageByIndex(_pageIndex)->UpdateState(x, y);
+    }
+
     _page_indicator->UpdateState(x, y);
 }
 
@@ -85,6 +97,7 @@ void EPDGUI_Page_Container::EPDGUI_AddComponent(EPDGUI_Base *component, int16_t 
     for (int i = _pages.size(); i < pageIndex + 1; i++)
     {
         _pages.push_back(new EPDGUI_Container(0, 0, _w, _h - INDICATOR_HEIGHT));
+        _size = _pages.size();
     }
 
     GetPageByIndex(pageIndex)->EPDGUI_AddComponent(component);

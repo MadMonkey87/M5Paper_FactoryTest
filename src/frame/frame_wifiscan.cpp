@@ -296,6 +296,7 @@ void Frame_WifiScan::SetConnected(String ssid, int rssi)
 int Frame_WifiScan::init(epdgui_args_vector_t &args)
 {
     _is_run = 1;
+    M5.EPD.Clear();
     _connect = false;
     _canvas_title->pushCanvas(0, 8, UPDATE_MODE_NONE);
     if (args.size() > 0)

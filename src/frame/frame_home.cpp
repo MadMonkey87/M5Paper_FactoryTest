@@ -1,17 +1,16 @@
-#include "frame_playground.h"
+#include "frame_home.h"
 #include "SD.h"
 #include "ArduinoJson.h"
 #include "FS.h"
 
-Frame_Playground::Frame_Playground() : Frame_Base()
+Frame_Home::Frame_Home() : Frame_Base()
 {
-    Serial.print("Frame_Playground constructor");
-
-    _frame_name = "Frame_Playground";
+    _frame_name = "Frame_Home";
+    _frame_id = 1;
 
     _page_container = new EPDGUI_Page_Container(0, HEADER_HEIGHT, WIDTH, HEIGHT - HEADER_HEIGHT);
 
-    File file = SD.open("/index.json");
+    /*File file = SD.open("/index.json");
     if (!file)
     {
         Serial.println("Failed to open file for reading");
@@ -134,31 +133,22 @@ Frame_Playground::Frame_Playground() : Frame_Base()
                 _page_container->EPDGUI_AddComponent(_widget_spinner, p);
             }
         }
-    }
+    }*/
 
-    exitbtn("Back");
-    _canvas_title->drawString("Playground", 270, 34);
-
-    _key_exit->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void *)(&_is_run));
-    _key_exit->Bind(EPDGUI_Button::EVENT_RELEASED, &Frame_Base::exit_cb);
+    _canvas_title->drawString("PhiBoard", 270, 34);
 }
 
-Frame_Playground::~Frame_Playground()
+Frame_Home::~Frame_Home()
 {
-    Serial.print("Frame_Playground destructor");
-
     delete _page_container;
 }
 
-int Frame_Playground::init(epdgui_args_vector_t &args)
+int Frame_Home::init(epdgui_args_vector_t &args)
 {
-    Serial.print("Frame_Playground init");
-
     _is_run = 1;
     M5.EPD.Clear();
-    
+
     _canvas_title->pushCanvas(0, 8, UPDATE_MODE_NONE);
-    EPDGUI_AddObject(_key_exit);
 
     _page_container->Init();
     EPDGUI_AddObject(_page_container);
@@ -166,7 +156,7 @@ int Frame_Playground::init(epdgui_args_vector_t &args)
     return 0;
 }
 
-int Frame_Playground::run(void)
+int Frame_Home::run(void)
 {
     M5.update();
     if (M5.BtnL.isPressed() && lastButtonIndex != -1)

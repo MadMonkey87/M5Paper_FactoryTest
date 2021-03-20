@@ -181,6 +181,7 @@ Frame_Setting::~Frame_Setting(void)
 int Frame_Setting::init(epdgui_args_vector_t &args)
 {
     _is_run = 1;
+    M5.EPD.Clear();
     _canvas_title->pushCanvas(0, 8, UPDATE_MODE_NONE);
     _timezone_canvas->pushCanvas(0, kTimeZoneY, UPDATE_MODE_NONE);
     EPDGUI_AddObject(_key_shutdown);

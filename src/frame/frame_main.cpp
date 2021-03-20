@@ -6,6 +6,7 @@
 #include "frame_fileindex.h"
 #include "frame_compare.h"
 #include "frame_playground.h"
+#include "frame_home.h"
 
 enum
 {
@@ -15,7 +16,8 @@ enum
     kKeyWifiScan,
     kKeySDFile,
     kKeyCompare,
-    kKeyPlayground
+    kKeyPlayground,
+    kKeyHome
 };
 
 #define KEY_W 92
@@ -100,6 +102,18 @@ void key_playground_cb(epdgui_args_vector_t &args)
     *((int *)(args[0])) = 0;
 }
 
+void key_home_cb(epdgui_args_vector_t &args)
+{
+    Frame_Base *frame = EPDGUI_GetFrame("Frame_Home");
+    if (frame == NULL)
+    {
+        frame = new Frame_Home();
+        EPDGUI_AddFrame("Frame_Home", frame);
+    }
+    EPDGUI_PushFrame(frame);
+    *((int *)(args[0])) = 0;
+}
+
 Frame_Main::Frame_Main(void) : Frame_Base(false)
 {
     _frame_name = "Frame_Main";
@@ -164,6 +178,12 @@ Frame_Main::Frame_Main(void) : Frame_Base(false)
     _key[kKeyCompare]->CanvasPressed()->ReverseColor();
     _key[kKeyCompare]->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void *)(&_is_run));
     _key[kKeyCompare]->Bind(EPDGUI_Button::EVENT_RELEASED, key_compare_cb);
+
+    _key[kKeyHome]->CanvasNormal()->pushImage(0, 0, 92, 92, ImageResource_main_icon_compare_92x92);
+    *(_key[kKeyHome]->CanvasPressed()) = *(_key[kKeyHome]->CanvasNormal());
+    _key[kKeyHome]->CanvasPressed()->ReverseColor();
+    _key[kKeyHome]->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void *)(&_is_run));
+    _key[kKeyHome]->Bind(EPDGUI_Button::EVENT_RELEASED, key_home_cb);
 
     _time = 0;
     _next_update_time = 0;
@@ -261,7 +281,7 @@ void Frame_Main::StatusBar(m5epd_update_mode_t mode)
 int Frame_Main::init(epdgui_args_vector_t &args)
 {
     _is_run = 1;
-    //M5.EPD.WriteFullGram4bpp(GetWallpaper());
+    M5.EPD.Clear();
     for (int i = 0; i < 8; i++)
     {
         EPDGUI_AddObject(_key[i]);

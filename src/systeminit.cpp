@@ -92,11 +92,16 @@ void SysInit_Start(void)
 
     _initcanvas.createRender(26, 128);
 
-    Frame_Main *frame_main = new Frame_Main();
-    EPDGUI_PushFrame(frame_main);
+    /*Frame_Main *frame_main = new Frame_Main();
+    EPDGUI_PushFrame(frame_main);*/
+
+    Frame_Home *frame_home = new Frame_Home();
+    EPDGUI_PushFrame(frame_home);
+
+    /*Frame_Playground *frame_playground = NULL;
+    EPDGUI_AddFrame("Frame_playground", frame_playground);
     Frame_FactoryTest *frame_factorytest = new Frame_FactoryTest();
     EPDGUI_AddFrame("Frame_FactoryTest", frame_factorytest);
-
     Frame_Setting *frame_setting = new Frame_Setting();
     EPDGUI_AddFrame("Frame_Setting", frame_setting);
     Frame_Keyboard *frame_keyboard = new Frame_Keyboard(0);
@@ -106,9 +111,7 @@ void SysInit_Start(void)
     Frame_WifiPassword *frame_wifipassword = new Frame_WifiPassword();
     EPDGUI_AddFrame("Frame_WifiPassword", frame_wifipassword);
     Frame_Compare *frame_compare = new Frame_Compare();
-    EPDGUI_AddFrame("Frame_Compare", frame_compare);
-    Frame_Playground *frame_playground = NULL;
-    EPDGUI_AddFrame("Frame_playground", frame_playground);
+    EPDGUI_AddFrame("Frame_Compare", frame_compare);*/
 
     if (isWiFiConfiged())
     {
@@ -124,7 +127,7 @@ void SysInit_Start(void)
 
             if (WiFi.status() == WL_CONNECTED)
             {
-                frame_wifiscan->SetConnected(GetWifiSSID(), WiFi.RSSI());
+                //frame_wifiscan->SetConnected(GetWifiSSID(), WiFi.RSSI());
                 break;
             }
         }

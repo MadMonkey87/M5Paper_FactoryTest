@@ -28,6 +28,7 @@ private:
     EPDGUI_Container *GetPageByIndex(int16_t pageIndex);
     EPDGUI_Page_Indicator *_page_indicator;
     int16_t _pageIndex = 0;
+    int16_t _size = 0;
 };
 
 #endif //__EPDGUI_PAGE_CONTAINER_H

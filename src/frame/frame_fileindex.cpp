@@ -192,6 +192,7 @@ Frame_FileIndex::~Frame_FileIndex(void)
 int Frame_FileIndex::init(epdgui_args_vector_t &args)
 {
     _is_run = 1;
+    M5.EPD.Clear();
 
     if (_key_files.size() == 0)
     {
