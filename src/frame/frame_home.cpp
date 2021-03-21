@@ -24,14 +24,35 @@ Frame_Home::Frame_Home() : Frame_Base()
     _canvas_title->drawString("PhiBoard", 270, 34);
 
     DynamicJsonDocument jsonDocument(1024 * 16);
-
     JsonArray widgets = jsonDocument.to<JsonArray>();
+
+    JsonObject dashboardWidget = widgets.createNestedObject();
+    dashboardWidget["widgettype"] = "icon";
+    dashboardWidget["description"] = "Dashboard";
+    dashboardWidget["icon"] = "/Icons/Dashboard.jpg";
+    dashboardWidget["grid_width"] = 1;
+    dashboardWidget["grid_height"] = 1;
+
     JsonObject settingsWidget = widgets.createNestedObject();
     settingsWidget["widgettype"] = "icon";
-    settingsWidget["description"] = "XBOX";
-    settingsWidget["icon"] = "/Icons/Xbox.jpg";
+    settingsWidget["description"] = "Settings";
+    settingsWidget["icon"] = "/Icons/Settings.jpg";
     settingsWidget["grid_width"] = 1;
     settingsWidget["grid_height"] = 1;
+
+    JsonObject factoryTestWidget = widgets.createNestedObject();
+    factoryTestWidget["widgettype"] = "icon";
+    factoryTestWidget["description"] = "Factory Test";
+    factoryTestWidget["icon"] = "/Icons/Test.jpg";
+    factoryTestWidget["grid_width"] = 1;
+    factoryTestWidget["grid_height"] = 1;
+
+    JsonObject compareWidget = widgets.createNestedObject();
+    compareWidget["widgettype"] = "icon";
+    compareWidget["description"] = "Compare Graphic Modes";
+    compareWidget["icon"] = "/Icons/Lab.jpg";
+    compareWidget["grid_width"] = 1;
+    compareWidget["grid_height"] = 1;
 
     _page_container = new EPDGUI_Page_Container(0, HEADER_HEIGHT, WIDTH, HEIGHT - HEADER_HEIGHT);
     _page_container->PropagateWidgets(widgets, WIDTH, HEADER_HEIGHT);
